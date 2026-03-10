@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_json("Tagesschau_data_otherFormat.json")
+df = pd.read_json("Data/Tagesschau_data_otherFormat.json")
 
 keywords = ["israel", "gaza", "palestine", "hamas"]
 
