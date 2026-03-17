@@ -26,35 +26,57 @@ df = df_china
 # Titel der App
 st.title("Media Coverage Analysis: China")
 
-# --- Sidebar für Filter (Optional) ---
-st.sidebar.header("Filter Optionen")
-source_filter = st.sidebar.multiselect(
-    "Quellen auswählen:",
-    options=df['SourceCommonName'].unique(),
-    default=df['SourceCommonName'].unique()
-)
+df = df[df['SourceCommonName'].str.contains('tagesschau|foxnews', case=False, na=False)]
 
-# Daten filtern basierend auf Auswahl
-df_filtered = df[df['SourceCommonName'].isin(source_filter)]
 
-# --- Plotly Density Heatmap ---
-# Wir nutzen facet_col, um Foxnews und Tagesschau nebeneinander zu zeigen
-fig = px.density_heatmap(
-    df_filtered, 
+
+
+
+
+df['Month'] = df['Date'].dt.strftime('%Y-%m')
+
+fig = px.scatter(
+    df.sort_values('Month'), 
     x="tone", 
     y="polarity", 
-    facet_col="SourceCommonName",
-    nbinsx=30, 
-    nbinsy=30,
-    range_x=[-7, 5], 
-    range_y=[0, 12],
-    color_continuous_scale="Viridis", # Oder 'Reds'/'Blues'
-    labels={'tone': 'Tone (Sentiment)', 'polarity': 'Polarity (Intensity)'},
-    title="Interactive Density Focus"
+    animation_frame="Month", # Das erzeugt den Zeit-Slider
+    animation_group="SourceCommonName",
+    color="SourceCommonName",
+    hover_name="DocumentIdentifier",
+    range_x=[-10, 5], 
+    range_y=[0, 15],
+    title="Die Evolution der Berichterstattung (Monat für Monat)"
 )
 
-# Layout-Anpassungen (Null-Linie hinzufügen)
+st.plotly_chart(fig, use_container_width=True)
+
+
+df_monthly= df.groupby(['SourceCommonName', pd.Grouper(key='Date', freq='W')]).agg({
+    'tone': 'mean',
+    'polarity': 'mean'
+}).reset_index().sort_values('Date')
+
+# --- 2. Farben festlegen ---
+color_map = {
+    'foxnews.com': '#FF0000',      # Klassisches Rot
+    'tagesschau.de': '#004494'     # Tagesschau-Blau
+}
+
+# --- 3. Den Pfad-Plot erstellen ---
+fig = px.line(
+    df_monthly, 
+    x="tone", 
+    y="polarity", 
+    color="SourceCommonName",
+    color_discrete_map=color_map, # Hier setzen wir deine Farben
+    markers=True,                 # Zeigt die einzelnen Wochenpunkte an
+    hover_data={'Date': "|%m."}, 
+    title="Monthly Average movement ",
+    labels={'tone': 'Average Tone', 'polarity': 'Average Polarity'}
+)
+
+# Das Design etwas "sauberer" machen
+fig.update_traces(line=dict(width=3), marker=dict(size=8))
 fig.add_vline(x=0, line_dash="dash", line_color="gray", opacity=0.5)
 
-# Plot in Streamlit anzeigen
 st.plotly_chart(fig, use_container_width=True)
