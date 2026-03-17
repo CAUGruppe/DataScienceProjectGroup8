@@ -1,14 +1,15 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+from matplotlib import pyplot as plt
+import seaborn as sns
+import sys
+import os
+import utils
 
 
-@st.cache_data
-def load_data():
-    return pd.read_parquet("data/FULL_DATASET_GKG.parquet")
 
-
-df = load_data()
+df = utils.load_data()
 df['Date'] = pd.to_datetime(df['DATE'], format='%Y%m%d%H%M%S')
 
 
@@ -39,7 +40,7 @@ fig = px.scatter(
     df.sort_values('Month'), 
     x="tone", 
     y="polarity", 
-    animation_frame="Month", # Das erzeugt den Zeit-Slider
+    animation_frame="Month", 
     animation_group="SourceCommonName",
     color="SourceCommonName",
     hover_name="DocumentIdentifier",
@@ -58,17 +59,17 @@ df_monthly= df.groupby(['SourceCommonName', pd.Grouper(key='Date', freq='W')]).a
 
 # --- 2. Farben festlegen ---
 color_map = {
-    'foxnews.com': '#FF0000',      # Klassisches Rot
-    'tagesschau.de': '#004494'     # Tagesschau-Blau
+    'foxnews.com': '#FF0000',      
+    'tagesschau.de': '#004494'     
 }
 
-# --- 3. Den Pfad-Plot erstellen ---
+
 fig = px.line(
     df_monthly, 
     x="tone", 
     y="polarity", 
     color="SourceCommonName",
-    color_discrete_map=color_map, # Hier setzen wir deine Farben
+    color_discrete_map=color_map, 
     markers=True,                 # Zeigt die einzelnen Wochenpunkte an
     hover_data={'Date': "|%m."}, 
     title="Monthly Average movement ",
@@ -80,3 +81,38 @@ fig.update_traces(line=dict(width=3), marker=dict(size=8))
 fig.add_vline(x=0, line_dash="dash", line_color="gray", opacity=0.5)
 
 st.plotly_chart(fig, use_container_width=True)
+
+
+
+
+
+df_fox = df[df['SourceCommonName'].str.contains('foxnews.com', case=False, na=False)]
+df_ts = df[df['SourceCommonName'].str.contains('tagesschau', case=False, na=False)]
+
+# 2. Subplots erstellen
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 7), sharex=True, sharey=True)
+
+extent = [-7, 5, 0, 12] 
+
+# Hexbin für Foxnews
+hb1 = ax1.hexbin(df_fox['tone'], df_fox['polarity'], gridsize=25, cmap='Reds', mincnt=1, extent=extent)
+ax1.set_title('Density-Focus: Foxnews', fontsize=14)
+ax1.set_xlabel('Tone')
+ax1.set_ylabel('Polarity')
+fig.colorbar(hb1, ax=ax1, label='Anzahl Artikel')
+
+# Hexbin für Tagesschau
+hb2 = ax2.hexbin(df_ts['tone'], df_ts['polarity'], gridsize=25, cmap='Blues', mincnt=1, extent=extent)
+ax2.set_title('Density-Focus: Tagesschau', fontsize=14)
+ax2.set_xlabel('Tone')
+fig.colorbar(hb2, ax=ax2, label='Amount of Articles')
+
+# Nulllinie zur Orientierung
+for ax in [ax1, ax2]:
+    ax.axvline(0, color='black', linestyle='--', alpha=0.3)
+
+plt.suptitle('Comparison of coverage (China related topics)', fontsize=16)
+plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+
+
+st.pyplot(fig)
