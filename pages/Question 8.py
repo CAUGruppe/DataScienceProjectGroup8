@@ -61,17 +61,31 @@ events_non_unknown = load_rq8_events_non_unknown()
 
 st.markdown("### Event types: attention and tone")
 
-# Optionaler Filter: minimale Artikelzahl pro Eventtyp
-min_articles = st.slider(
-    "Minimum number of articles per event type",
-    min_value=0,
-    max_value=int(events_non_unknown["total_articles"].max()),
-    value=500,
-    step=100,
-)
+max_articles_global = int(events_non_unknown["total_articles"].max())
+
+col_min, col_max = st.columns(2)
+
+with col_min:
+    min_articles = st.slider(
+        "Minimum number of articles per event type",
+        min_value=0,
+        max_value=max_articles_global,
+        value=500,
+        step=100,
+    )
+
+with col_max:
+    max_articles = st.slider(
+        "Maximum number of articles per event type",
+        min_value=min_articles,          # darf nicht kleiner als min sein
+        max_value=max_articles_global,
+        value=max_articles_global,
+        step=100,
+    )
 
 events_filtered = events_non_unknown[
-    events_non_unknown["total_articles"] >= min_articles
+    (events_non_unknown["total_articles"] >= min_articles)
+    & (events_non_unknown["total_articles"] <= max_articles)
 ].copy()
 
 if events_filtered.empty:
@@ -90,8 +104,7 @@ else:
             "total_articles": False,
             "avg_tone": False,
         },
-        # etwas „kräftigere“ Skala statt sehr heller Mitte
-        color_continuous_scale="Viridis",  # oder "Plasma", "Turbo"
+        color_continuous_scale="Viridis",
         title="Media attention and average tone across event types",
         labels={
             "avg_tone": "Average tone",
@@ -104,7 +117,7 @@ else:
         marker=dict(
             sizemode="area",
             sizeref=events_filtered["total_articles"].max() / (40**2),
-            line=dict(width=1.2, color="#333333"),  # dunkler Rand für alle Bubbles
+            line=dict(width=1.2, color="#333333"),
             opacity=0.9,
         ),
         hovertemplate=(
@@ -125,13 +138,18 @@ else:
             tickformat=",",
         ),
         coloraxis_colorbar=dict(title="Avg tone"),
-        plot_bgcolor="#f5f5f8",   # leicht grau statt rein weiß
+        plot_bgcolor="#f5f5f8",
         paper_bgcolor="white",
         margin=dict(l=80, r=40, t=80, b=60),
     )
 
     st.plotly_chart(fig_events, use_container_width=True)
 
+st.markdown("""
+### Interpretation
+This bubble chart show each event type by its average tone and the total number of related articles where larger bubbles represent events with higher overall media attention and the color indicates the average tone. In Addition to that the sliders allow you to adjust the range of total articles.\n
+            
+""")
 st.divider()
 
 
