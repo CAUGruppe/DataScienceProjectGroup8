@@ -78,6 +78,12 @@ df_sel = (
 if df_sel.empty:
     st.warning("No actors found for this event.")
 else:
+    n_actors = len(df_sel)
+    base_height = 300          # Mindesthöhe
+    per_actor = 30             # Pixel pro Actor
+
+    height = max(base_height, per_actor * n_actors)
+
     fig = px.bar(
         df_sel,
         x="total_articles",
@@ -90,8 +96,9 @@ else:
             "total_articles": "Total Articles",
             "ActorName": "Actor",
         },
-        height=500,
+        height=height,
     )
+
 
     fig.update_layout(
         xaxis_title="Total number of articles",
