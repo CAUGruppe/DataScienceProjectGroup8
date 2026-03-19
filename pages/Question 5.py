@@ -24,14 +24,9 @@ st.divider()
 def load_rq5_data():
     df = pd.read_csv(
         "tagesschau_zdf_pbs_events.csv",
-        dtype={"EventCode": str},
         on_bad_lines="skip",
         low_memory=False,
     )
-    df.columns = [
-        "SQLDATE", "SOURCEURL", "AvgTone", "NumArticles",
-        "Actor1Name", "Actor2Name", "EventCode",
-    ]
     df["SQLDATE"] = pd.to_datetime(
         df["SQLDATE"].astype(str), format="%Y%m%d", errors="coerce"
     )
@@ -139,7 +134,7 @@ monthly = (
 )
 monthly["Date"]      = monthly["YearMonth"].dt.to_timestamp()
 monthly["DateLabel"] = monthly["Date"].dt.strftime("%b %Y")
-monthly = monthly[monthly["n"] >= 3].sort_values("Date")
+monthly = monthly[monthly["n"] >= 1].sort_values("Date")
 
 y_min = monthly["mean"].min() - 0.5
 y_max = monthly["mean"].max() + 0.8
@@ -322,7 +317,6 @@ for outlet in OUTLETS:
 
 fig2.add_hline(y=0, line_width=1)
 
-# Bubble size legend
 ref_sizes = [50, 200, 500]
 x_ref     = monthly["Date"].max() + pd.DateOffset(months=2)
 fig2.add_annotation(
