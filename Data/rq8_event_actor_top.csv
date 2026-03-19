@@ -1,0 +1,944 @@
+EventCode,EventLabel,ActorName,total_articles
+10,DEMAND,GERMAN,262
+10,DEMAND,GERMANY,263
+10,DEMAND,GOVERNMENT,312
+10,DEMAND,ISRAEL,276
+10,DEMAND,ISRAELI,366
+100,"Demand, not specified below",BUNDESTAG,50
+100,"Demand, not specified below",GERMANY,56
+100,"Demand, not specified below",GOVERNMENT,66
+100,"Demand, not specified below",ISRAELI,70
+100,"Demand, not specified below",RUSSIA,46
+100,"Demand, not specified below",UKRAINE,50
+102,Demand policy support,OBAMA,10
+1031,Demand economic aid,EUROPE,8
+1031,Demand economic aid,GERMAN,18
+1031,Demand economic aid,GOVERNMENT,10
+1031,Demand economic aid,ITALIAN,10
+1031,Demand economic aid,RUSSIA,2
+1031,Demand economic aid,RUSSIAN,44
+1041,Demand change in leadership,GOVERNMENT,10
+1041,Demand change in leadership,POPULATION,10
+1043,Demand rights,GAZA,20
+1043,Demand rights,IRELAND,10
+1043,Demand rights,SPAIN,10
+1053,Demand release of persons or property,ISLAMIC,10
+1053,Demand release of persons or property,ISRAELI,10
+106,,AFGHAN,10
+106,,GERMANY,10
+11,DISAPPROVE,INTERIOR MINIST,10
+11,DISAPPROVE,POLICEMAN,10
+110,"Disapprove, not specified below",GOVERNMENT,192
+110,"Disapprove, not specified below",MILITARY,182
+110,"Disapprove, not specified below",PRESIDENT,174
+110,"Disapprove, not specified below",RUSSIA,703
+110,"Disapprove, not specified below",UKRAINE,649
+111,Criticize or denounce ,GOVERNMENT,168
+111,Criticize or denounce ,ISRAEL,141
+111,Criticize or denounce ,ISRAELI,109
+111,Criticize or denounce ,PRESIDENT,150
+111,Criticize or denounce ,RUSSIA,145
+112,"Accuse, not specified below",GOVERNMENT,68
+112,"Accuse, not specified below",ISRAELI,80
+112,"Accuse, not specified below",RUSSIA,79
+112,"Accuse, not specified below",RUSSIAN,74
+112,"Accuse, not specified below",TERRORIST,68
+112,"Accuse, not specified below",UKRAINE,128
+1121,"Accuse of crime, corruption",COMMANDER,10
+1121,"Accuse of crime, corruption",CRIMINAL,10
+1121,"Accuse of crime, corruption",DISTRICT COURT,10
+1121,"Accuse of crime, corruption",GERMAN,8
+1121,"Accuse of crime, corruption",GERMANY,2
+1121,"Accuse of crime, corruption",INTERNATIONAL CRIMINAL COURT,10
+1121,"Accuse of crime, corruption",PROSECUTOR,2
+1122,Accuse of human rights abuses,GERMANY,10
+1122,Accuse of human rights abuses,MILITARY,10
+1123,Accuse of aggression,AUTHORITIES,10
+1123,Accuse of aggression,ISRAEL,2
+1123,Accuse of aggression,ISRAELI,8
+1123,Accuse of aggression,RUSSIAN,10
+1123,Accuse of aggression,UKRAINIAN,20
+1123,Accuse of aggression,WEST BANK,10
+1124,Accuse of war crimes,GERMANY,10
+1124,Accuse of war crimes,NICARAGUA,10
+114,Complain officially ,EUROPEAN,70
+114,Complain officially ,GERMAN,98
+114,Complain officially ,GERMANY,88
+114,Complain officially ,INDUSTRY,66
+114,Complain officially ,UKRAINE,56
+114,Complain officially ,UKRAINIAN,66
+12,REJECT,EUROPEAN,90
+12,REJECT,GAZA,74
+12,REJECT,GERMANY,106
+12,REJECT,GOVERNMENT,148
+12,REJECT,RUSSIAN,125
+120,"Reject, not specified below",ASYLUM SEEKER,250
+120,"Reject, not specified below",GERMANY,269
+120,"Reject, not specified below",GOVERNMENT,290
+120,"Reject, not specified below",ISRAEL,232
+120,"Reject, not specified below",RUSSIA,288
+122,"Reject request or demand for material aid, not specified below",COMBAT TROOPS,10
+122,"Reject request or demand for material aid, not specified below",EUROPEAN,10
+1233,Reject request for rights,JEWISH,10
+1233,Reject request for rights,TEHRAN,10
+124,"Refuse to yield, not specified below",JOURNALIST,10
+125,"Reject proposal to meet, discuss, or negotiate",BRUSSELS,10
+125,"Reject proposal to meet, discuss, or negotiate",GOVERNMENT,10
+125,"Reject proposal to meet, discuss, or negotiate",INTELLIGENCE,10
+125,"Reject proposal to meet, discuss, or negotiate",ISRAELI,8
+125,"Reject proposal to meet, discuss, or negotiate",JEWISH,10
+125,"Reject proposal to meet, discuss, or negotiate",MEDIA,10
+125,"Reject proposal to meet, discuss, or negotiate",PALESTINIAN,10
+125,"Reject proposal to meet, discuss, or negotiate",PARLIAMENT,10
+125,"Reject proposal to meet, discuss, or negotiate",PRESIDENT,10
+125,"Reject proposal to meet, discuss, or negotiate",SPECIAL FORCES,8
+125,"Reject proposal to meet, discuss, or negotiate",TEHRAN,8
+125,"Reject proposal to meet, discuss, or negotiate",US GOVERNMENT,20
+125,"Reject proposal to meet, discuss, or negotiate",YEMEN,10
+127,"Reject plan, agreement to settle dispute",BLOG,10
+127,"Reject plan, agreement to settle dispute",ISRAEL,10
+127,"Reject plan, agreement to settle dispute",ISRAELI,10
+128,"Defy norms, law",CROWN PRINCE,10
+128,"Defy norms, law",EUROPEAN,20
+128,"Defy norms, law",GOVERNMENT,20
+128,"Defy norms, law",INDUSTRY,10
+128,"Defy norms, law",ISRAEL,10
+128,"Defy norms, law",MOSCOW,10
+128,"Defy norms, law",PALESTINIAN,10
+128,"Defy norms, law",PRESIDENT,20
+128,"Defy norms, law",TEHRAN,10
+128,"Defy norms, law",TURKEY,30
+129,Veto,RUSSIA,10
+129,Veto,WORLD COMMUNITY,10
+13,THREATEN,AFRICA,10
+13,THREATEN,BUSINESS LEADER,10
+13,THREATEN,CONGRESS,10
+13,THREATEN,EGYPT,10
+13,THREATEN,EMBASSY,10
+13,THREATEN,EUROPEAN,10
+13,THREATEN,FRANKFURT,10
+13,THREATEN,GANG,10
+13,THREATEN,GAZA,10
+13,THREATEN,GERMAN,10
+13,THREATEN,GERMANY,32
+13,THREATEN,GOVERNMENT,50
+13,THREATEN,INDUSTRY,10
+13,THREATEN,ISRAELI,12
+13,THREATEN,KHARKIV,10
+13,THREATEN,MAYOR,10
+13,THREATEN,MEDIA,10
+13,THREATEN,MILITARY,20
+13,THREATEN,MINIST,10
+13,THREATEN,NEWS AGENCY,10
+13,THREATEN,OPPOSITION PARTY,10
+13,THREATEN,PALATINATE,10
+13,THREATEN,PRESIDENT,10
+13,THREATEN,PRIME MINISTER,20
+13,THREATEN,REFUGEE,10
+13,THREATEN,RUSSIA,20
+13,THREATEN,RUSSIAN,10
+13,THREATEN,SCHOOL,10
+13,THREATEN,SCIENTIST,10
+13,THREATEN,SWEDEN,10
+13,THREATEN,SWISS,10
+13,THREATEN,UKRAINE,20
+13,THREATEN,UNITED KINGDOM,10
+13,THREATEN,US GOVERNMENT,20
+130,"Threaten, not specified below",GAZA,52
+130,"Threaten, not specified below",GERMANY,90
+130,"Threaten, not specified below",GOVERNMENT,50
+130,"Threaten, not specified below",ISRAEL,62
+130,"Threaten, not specified below",ISRAELI,50
+130,"Threaten, not specified below",RUSSIAN,48
+131,"Threaten non-force, not specified below",EUROPEAN COMMISSION,10
+131,"Threaten non-force, not specified below",GAZA,2
+131,"Threaten non-force, not specified below",GERMAN,8
+131,"Threaten non-force, not specified below",GERMANY,10
+131,"Threaten non-force, not specified below",ISRAEL,8
+131,"Threaten non-force, not specified below",MILITIA,10
+1312,"Threaten to boycott, embargo, or sanction",IRELAND,30
+1312,"Threaten to boycott, embargo, or sanction",ISRAEL,4
+1312,"Threaten to boycott, embargo, or sanction",NETHERLANDS,30
+133,"Threaten political dissent, protest",FARMER,10
+133,"Threaten political dissent, protest",GAZA,10
+133,"Threaten political dissent, protest",GERMAN,10
+133,"Threaten political dissent, protest",GOVERNMENT,10
+133,"Threaten political dissent, protest",ISRAEL,10
+133,"Threaten political dissent, protest",ITALIAN,8
+133,"Threaten political dissent, protest",JUDGE,10
+133,"Threaten political dissent, protest",MEXICAN,10
+133,"Threaten political dissent, protest",PARLIAMENT,10
+133,"Threaten political dissent, protest",PRESIDENT,10
+133,"Threaten political dissent, protest",PROTESTER,20
+133,"Threaten political dissent, protest",TRADE UNION,10
+134,Threaten to halt negotiations,MEDIA,10
+134,Threaten to halt negotiations,NEWS AGENCY,10
+134,Threaten to halt negotiations,UKRAINE,10
+138,"Threaten to use military force, not specified below",GAZA,78
+138,"Threaten to use military force, not specified below",ISRAEL,104
+138,"Threaten to use military force, not specified below",ISRAELI,64
+138,"Threaten to use military force, not specified below",MEDIA,60
+138,"Threaten to use military force, not specified below",RUSSIAN,112
+138,"Threaten to use military force, not specified below",UKRAINE,104
+1383,Threaten unconventional violence ,AUTHORITIES,10
+1383,Threaten unconventional violence ,CRIMINAL,10
+1383,Threaten unconventional violence ,HOSPITAL,10
+1383,Threaten unconventional violence ,MEDIA,10
+1383,Threaten unconventional violence ,POLICE,10
+1384,Threaten conventional attack  ,CARGO SHIP,6
+1384,Threaten conventional attack  ,CHANCELLOR,10
+1384,Threaten conventional attack  ,DJIBOUTI,4
+1384,Threaten conventional attack  ,GAZA,6
+1384,Threaten conventional attack  ,GOVERNMENT,10
+1384,Threaten conventional attack  ,ISRAEL,4
+1384,Threaten conventional attack  ,MILITARY,20
+1384,Threaten conventional attack  ,RUSSIAN,10
+1384,Threaten conventional attack  ,TELEVISION,10
+1384,Threaten conventional attack  ,THE EU,10
+1384,Threaten conventional attack  ,UKRAINE,10
+139,Give ultimatum,GAZA,20
+139,Give ultimatum,GERMANY,10
+139,Give ultimatum,MEDIA,10
+139,Give ultimatum,NUREMBERG,10
+139,Give ultimatum,POLAND,8
+139,Give ultimatum,RUSSIAN,10
+139,Give ultimatum,UKRAINE,2
+139,Give ultimatum,UKRAINIAN,8
+14,PROTEST,CANADA,20
+14,PROTEST,EUROPE,18
+14,PROTEST,GOVERNMENT,30
+14,PROTEST,JUDGE,20
+14,PROTEST,PALESTINIAN,16
+14,PROTEST,RUSSIA,48
+14,PROTEST,UKRAINE,20
+140,"Engage in political dissent, not specified below",EMPLOYEE,10
+140,"Engage in political dissent, not specified below",PROTESTER,10
+141,Demonstrate or rally,FARMER,20
+141,Demonstrate or rally,GAZA,36
+141,Demonstrate or rally,GERMAN,28
+141,Demonstrate or rally,GOVERNMENT,32
+141,Demonstrate or rally,ISRAEL,16
+141,Demonstrate or rally,MINIST,20
+141,Demonstrate or rally,NATIONALS,20
+141,Demonstrate or rally,POLICE,20
+141,Demonstrate or rally,PROTESTER,28
+141,Demonstrate or rally,SECURITY FORCE,20
+143,"Conduct strike or boycott, not specified below",CZECH REPUBLIC,10
+143,"Conduct strike or boycott, not specified below",POLAND,10
+143,"Conduct strike or boycott, not specified below",RUSSIAN,20
+144,"Obstruct passage, block",DICTATOR,10
+144,"Obstruct passage, block",POLICE,10
+144,"Obstruct passage, block",PROTESTER,10
+145,"Protest violently, riot",CHAMBER,10
+145,"Protest violently, riot",COMMERZBANK,10
+145,"Protest violently, riot",GAZA,14
+145,"Protest violently, riot",ISRAEL,8
+145,"Protest violently, riot",ISRAELI,10
+145,"Protest violently, riot",REFUGEE,10
+145,"Protest violently, riot",RUSSIA,10
+145,"Protest violently, riot",UKRAINE,10
+145,"Protest violently, riot",WORLD FOOD PROGRAM,8
+15,EXHIBIT FORCE POSTURE,IRAN,10
+15,EXHIBIT FORCE POSTURE,UKRAINE,10
+150,"Demonstrate military or police power, not specified below",BUNDESTAG,10
+150,"Demonstrate military or police power, not specified below",CHINA,10
+150,"Demonstrate military or police power, not specified below",GAZA,2
+150,"Demonstrate military or police power, not specified below",IRAN,10
+150,"Demonstrate military or police power, not specified below",ISRAEL,2
+150,"Demonstrate military or police power, not specified below",ISRAELI,10
+150,"Demonstrate military or police power, not specified below",LIBERATION ARMY,10
+150,"Demonstrate military or police power, not specified below",MILITARY,80
+151,Increase police alert status,FIGHTER,10
+151,Increase police alert status,POLICE,10
+152,Increase military alert status,AFRICA,10
+152,Increase military alert status,CHINESE,10
+152,Increase military alert status,TELEVISION,8
+154,Mobilize or increase armed forces ,ARMED FORCES,10
+154,Mobilize or increase armed forces ,BLOG,10
+154,Mobilize or increase armed forces ,EUROPEAN,20
+154,Mobilize or increase armed forces ,FILIPINO,10
+154,Mobilize or increase armed forces ,IRAN,10
+154,Mobilize or increase armed forces ,ISRAEL,10
+154,Mobilize or increase armed forces ,MILITARY,110
+154,Mobilize or increase armed forces ,MILITIA,10
+154,Mobilize or increase armed forces ,NORTH KOREAN,10
+154,Mobilize or increase armed forces ,PALESTINIAN,10
+154,Mobilize or increase armed forces ,RUSSIA,10
+154,Mobilize or increase armed forces ,RUSSIAN,10
+154,Mobilize or increase armed forces ,UKRAINE,30
+16,REDUCE RELATIONS,FOREIGN MINIST,20
+16,REDUCE RELATIONS,GOVERNMENT,30
+16,REDUCE RELATIONS,ISRAEL,24
+16,REDUCE RELATIONS,ISRAELI,30
+16,REDUCE RELATIONS,LAWYER,30
+16,REDUCE RELATIONS,MEDIA,20
+16,REDUCE RELATIONS,RUSSIA,26
+16,REDUCE RELATIONS,TURKEY,40
+16,REDUCE RELATIONS,UKRAINIAN,20
+160,"Reduce relations, not specified below",AFRICA,10
+160,"Reduce relations, not specified below",AUSTRIA,10
+160,"Reduce relations, not specified below",BUNDESTAG,30
+160,"Reduce relations, not specified below",CHINA,10
+160,"Reduce relations, not specified below",CITIZEN,16
+160,"Reduce relations, not specified below",DEALER,10
+160,"Reduce relations, not specified below",EMBASSY,10
+160,"Reduce relations, not specified below",EXILES,10
+160,"Reduce relations, not specified below",GAZA,10
+160,"Reduce relations, not specified below",ISRAEL,26
+160,"Reduce relations, not specified below",JORDAN,12
+160,"Reduce relations, not specified below",JUDGE,10
+160,"Reduce relations, not specified below",LEBANON,10
+160,"Reduce relations, not specified below",MEXICO,10
+160,"Reduce relations, not specified below",PALESTINIAN,10
+160,"Reduce relations, not specified below",POPULATION,10
+160,"Reduce relations, not specified below",RUSSIA,10
+160,"Reduce relations, not specified below",RUSSIAN,10
+160,"Reduce relations, not specified below",SOUTH KOREA,10
+160,"Reduce relations, not specified below",TOURIST,10
+160,"Reduce relations, not specified below",TRADE MINIST,10
+160,"Reduce relations, not specified below",TURKEY,10
+160,"Reduce relations, not specified below",US STATE DEPARTMENT,10
+160,"Reduce relations, not specified below",WORKER,10
+161,Reduce or break diplomatic relations,BOLIVIA,20
+161,Reduce or break diplomatic relations,EMBASSY,90
+161,Reduce or break diplomatic relations,GERMAN,18
+161,Reduce or break diplomatic relations,GERMANY,42
+161,Reduce or break diplomatic relations,IRAN,20
+161,Reduce or break diplomatic relations,NETHERLANDS,10
+161,Reduce or break diplomatic relations,NICARAGUA,10
+161,Reduce or break diplomatic relations,PAKISTAN,10
+161,Reduce or break diplomatic relations,SOUTH SUDAN,20
+161,Reduce or break diplomatic relations,TERRORIST,10
+162,"Reduce or stop aid, not specified below",AFRICA,10
+162,"Reduce or stop aid, not specified below",BELGIUM,2
+162,"Reduce or stop aid, not specified below",BRUSSELS,8
+162,"Reduce or stop aid, not specified below",GAZA,10
+162,"Reduce or stop aid, not specified below",INTELLIGENCE INFORMATION,10
+162,"Reduce or stop aid, not specified below",MILITARY,20
+162,"Reduce or stop aid, not specified below",MINIST,10
+162,"Reduce or stop aid, not specified below",SYRIAN,8
+162,"Reduce or stop aid, not specified below",UKRAINE,10
+163,"Impose embargo, boycott, or sanctions",BUNDESTAG,28
+163,"Impose embargo, boycott, or sanctions",MOSCOW,26
+163,"Impose embargo, boycott, or sanctions",RUSSIA,64
+163,"Impose embargo, boycott, or sanctions",UKRAINE,32
+163,"Impose embargo, boycott, or sanctions",US GOVERNMENT,30
+164,Halt negotiations,AUSTRIA,20
+164,Halt negotiations,AUTHORITIES,20
+164,Halt negotiations,ISRAEL,12
+164,Halt negotiations,LEBANESE,26
+164,Halt negotiations,POLICE,20
+164,Halt negotiations,PRESIDENT,40
+164,Halt negotiations,RUSSIA,56
+164,Halt negotiations,RUSSIAN,12
+164,Halt negotiations,UKRAINE,56
+164,Halt negotiations,UKRAINIAN,12
+164,Halt negotiations,UNITED NATIONS,40
+166,"Expel or withdraw, not specified below",RUSSIAN,10
+17,COERCE,CHINESE,8
+17,COERCE,FRANCE,10
+17,COERCE,GAZA,10
+17,COERCE,HUNGARY,4
+17,COERCE,ITALIAN,8
+17,COERCE,MOLDOVA,6
+17,COERCE,RULER,10
+17,COERCE,RUSSIA,6
+17,COERCE,SLOVAKIA,20
+17,COERCE,SOUTH KOREA,10
+17,COERCE,SWEDEN,10
+17,COERCE,VATICAN,10
+17,COERCE,WARSAW,10
+170,"Coerce, not specified below ",PHYSICIAN,10
+1711,Confiscate property,ARMED MEN,10
+1711,Confiscate property,FIGHTER,10
+1711,Confiscate property,ISRAEL,8
+1711,Confiscate property,ITALY,10
+1711,Confiscate property,MILITARY,20
+1711,Confiscate property,PALESTINIAN,2
+1711,Confiscate property,PANAMANIAN,8
+1711,Confiscate property,POLICE,20
+1711,Confiscate property,US GOVERNMENT,20
+1712,Destroy property,FIREFIGHTER,50
+1712,Destroy property,GAZA,52
+1712,Destroy property,KHARKIV,38
+1712,Destroy property,RUSSIAN,54
+1712,Destroy property,UKRAINIAN,48
+172,"Impose administrative sanctions, not specified below",BUSINESS,20
+172,"Impose administrative sanctions, not specified below",DENMARK,20
+172,"Impose administrative sanctions, not specified below",GERMANY,26
+172,"Impose administrative sanctions, not specified below",GOVERNMENT,44
+172,"Impose administrative sanctions, not specified below",ISRAELI,16
+172,"Impose administrative sanctions, not specified below",MILITARY,20
+172,"Impose administrative sanctions, not specified below",PAKISTAN,20
+172,"Impose administrative sanctions, not specified below",RUSSIAN,54
+172,"Impose administrative sanctions, not specified below",SCHOOL,20
+1721,Impose restrictions on political freedoms  ,AUTHORITIES,8
+1721,Impose restrictions on political freedoms  ,BEIJING,8
+1721,Impose restrictions on political freedoms  ,CHINA,10
+1721,Impose restrictions on political freedoms  ,PRESIDENT,10
+1722,Ban political parties or politicians,CONSTITUTIONAL COURT,10
+1722,Ban political parties or politicians,GERMANY,10
+1722,Ban political parties or politicians,GOVERNMENT,6
+1722,Ban political parties or politicians,RULING PARTY,6
+1723,Impose curfew,AUTHORITIES,20
+1723,Impose curfew,GOVERNMENT,20
+1723,Impose curfew,POLICE,20
+1724,Impose state of emergency or martial law,RUSSIA,10
+1724,Impose state of emergency or martial law,UKRAINE,10
+173,"Arrest, detain, or charge with legal action ",GOVERNMENT,188
+173,"Arrest, detain, or charge with legal action ",ISRAELI,140
+173,"Arrest, detain, or charge with legal action ",RUSSIA,295
+173,"Arrest, detain, or charge with legal action ",RUSSIAN,211
+173,"Arrest, detain, or charge with legal action ",TURKEY,160
+173,"Arrest, detain, or charge with legal action ",UKRAINE,140
+174,Expel or deport individuals,CHINA,10
+174,Expel or deport individuals,FOREIGN MINIST,10
+174,Expel or deport individuals,GAZA,6
+174,Expel or deport individuals,GERMAN,10
+174,Expel or deport individuals,ISRAEL,6
+174,Expel or deport individuals,RUSSIA,10
+175,Use tactics of violent repression  ,GOVERNMENT,6
+175,Use tactics of violent repression  ,IRANIAN,10
+175,Use tactics of violent repression  ,ITALIAN,8
+175,Use tactics of violent repression  ,ITALY,6
+175,Use tactics of violent repression  ,JOURNALIST,50
+175,Use tactics of violent repression  ,POLICE,20
+175,Use tactics of violent repression  ,PROTESTER,10
+18,ASSAULT,BLOG,10
+18,ASSAULT,EMBASSY,10
+18,ASSAULT,FRENCH,8
+18,ASSAULT,GERMAN,20
+18,ASSAULT,ISRAELI,10
+18,ASSAULT,KHARKIV,14
+18,ASSAULT,MINIST OF TRANSPORT,10
+18,ASSAULT,PRESIDENT,10
+18,ASSAULT,REPRESENTATIVES,10
+18,ASSAULT,SOVEREIGN,8
+18,ASSAULT,SYRIAN,6
+18,ASSAULT,UKRAINE,10
+18,ASSAULT,UNITED STATES,8
+180,"Use unconventional violence, not specified below",CARRIER,20
+180,"Use unconventional violence, not specified below",FIREFIGHTER,20
+180,"Use unconventional violence, not specified below",GERMAN,18
+180,"Use unconventional violence, not specified below",GERMANY,30
+180,"Use unconventional violence, not specified below",ISRAEL,30
+180,"Use unconventional violence, not specified below",ISRAELI,34
+180,"Use unconventional violence, not specified below",MALE,20
+180,"Use unconventional violence, not specified below",POLICE,20
+180,"Use unconventional violence, not specified below",RUSSIA,20
+180,"Use unconventional violence, not specified below",RUSSIAN,36
+181,"Abduct, hijack, or take hostage ",BLOG,20
+181,"Abduct, hijack, or take hostage ",DEMONSTRATOR,20
+181,"Abduct, hijack, or take hostage ",GAZA,122
+181,"Abduct, hijack, or take hostage ",ISRAEL,52
+181,"Abduct, hijack, or take hostage ",ISRAELI,52
+181,"Abduct, hijack, or take hostage ",MALE,50
+181,"Abduct, hijack, or take hostage ",NATIONALS,20
+181,"Abduct, hijack, or take hostage ",RUSSIA,20
+181,"Abduct, hijack, or take hostage ",TERRORIST ORGANIZATION,26
+181,"Abduct, hijack, or take hostage ",THAILAND,20
+182,"Physically assault, not specified below",AUTHORITIES,22
+182,"Physically assault, not specified below",CIVILIAN,30
+182,"Physically assault, not specified below",ISRAELI,64
+182,"Physically assault, not specified below",RUSSIAN,44
+182,"Physically assault, not specified below",UKRAINE,28
+1822,Torture,EMPLOYEE,10
+1822,Torture,GERMANY,10
+1822,Torture,INTELLIGENCE,10
+1822,Torture,MILITARY INTELLIGENCE,10
+1822,Torture,POPULATION,10
+1822,Torture,PRISON,18
+1822,Torture,PRISONER,10
+1822,Torture,SYRIA,10
+1822,Torture,SYRIAN,14
+183,"Conduct suicide, car, or other non-military bombing, not spec below",GAZA,12
+183,"Conduct suicide, car, or other non-military bombing, not spec below",ISRAEL,34
+183,"Conduct suicide, car, or other non-military bombing, not spec below",ISRAELI,4
+183,"Conduct suicide, car, or other non-military bombing, not spec below",PALESTINIAN,8
+185,Attempt to assassinate,AUTHORITIES,10
+185,Attempt to assassinate,CONGRESS,10
+186,Assassinate ,CRIMINAL,10
+186,Assassinate ,MERCHANT SHIP,4
+186,Assassinate ,MINIST,10
+186,Assassinate ,RUSSIAN,10
+19,FIGHT,PRESIDENT,10
+19,FIGHT,UKRAINE,10
+190,"Use conventional military force, not specified below",ISRAEL,269
+190,"Use conventional military force, not specified below",ISRAELI,385
+190,"Use conventional military force, not specified below",RUSSIA,263
+190,"Use conventional military force, not specified below",RUSSIAN,296
+190,"Use conventional military force, not specified below",UKRAINE,339
+191,"Impose blockade, restrict movement ",EGYPT,62
+191,"Impose blockade, restrict movement ",GAZA,258
+191,"Impose blockade, restrict movement ",ISRAEL,126
+191,"Impose blockade, restrict movement ",ISRAELI,132
+191,"Impose blockade, restrict movement ",PALESTINIAN,56
+192,Occupy territory,ARMY,10
+192,Occupy territory,CRIMINAL POLICE,10
+192,Occupy territory,GERMAN,10
+192,Occupy territory,ISRAEL,12
+192,Occupy territory,MUNICH,10
+192,Occupy territory,PARLIAMENT,10
+192,Occupy territory,POLAND,10
+192,Occupy territory,PRESIDENT,20
+192,Occupy territory,REFUGEE,10
+192,Occupy territory,RUSSIA,10
+192,Occupy territory,RUSSIAN,40
+192,Occupy territory,SECURITY FORCE,10
+192,Occupy territory,SMALL TOWN,10
+192,Occupy territory,UKRAINE,36
+192,Occupy territory,UKRAINIAN,20
+193,Fight with small arms and light weapons,ISRAEL,134
+193,Fight with small arms and light weapons,ISRAELI,170
+193,Fight with small arms and light weapons,POLICE,130
+193,Fight with small arms and light weapons,RUSSIAN,280
+193,Fight with small arms and light weapons,UKRAINIAN,161
+194,Fight with artillery and tanks,ISRAEL,100
+194,Fight with artillery and tanks,ISRAELI,74
+194,Fight with artillery and tanks,LEBANON,90
+194,Fight with artillery and tanks,RUSSIA,114
+194,Fight with artillery and tanks,UKRAINE,100
+194,Fight with artillery and tanks,UKRAINIAN,84
+195,Employ aerial weapons,COMBAT AIRCRAFT,90
+195,Employ aerial weapons,GAZA,84
+195,Employ aerial weapons,ISRAEL,112
+195,Employ aerial weapons,ISRAELI,140
+195,Employ aerial weapons,LEBANON,150
+20,USE UNCONVENTIONAL MASS VIOLENCE,GERMANY,568
+20,USE UNCONVENTIONAL MASS VIOLENCE,GOVERNMENT,522
+20,USE UNCONVENTIONAL MASS VIOLENCE,MILITARY,450
+20,USE UNCONVENTIONAL MASS VIOLENCE,RUSSIA,430
+20,USE UNCONVENTIONAL MASS VIOLENCE,UKRAINE,914
+202,Engage in mass killings,CIVILIAN,20
+202,Engage in mass killings,SYRIA,10
+203,Engage in ethnic cleansing,POPULATION,6
+214,,POPULATION,20
+214,,SCIENTIST,10
+22,,EGYPT,10
+22,,SPECIAL ENVOY,10
+22,,UKRAINE,10
+23,,AUSTRALIA,10
+23,,CITIZEN,10
+23,,CIVILIAN,10
+23,,CRIMINAL,10
+23,,EUROPEAN,10
+23,,FRANCE,12
+23,,FRENCH,14
+23,,GERMAN,28
+23,,GERMANY,10
+23,,GOVERNMENT,10
+23,,MEDIA,20
+23,,MINIST,10
+23,,MINIST OF HEALTH,10
+23,,NETHERLANDS,10
+23,,PAPUA NEW GUINEA,10
+23,,PRESIDENT,20
+23,,SYRIAN,10
+23,,TURKEY,10
+23,,UKRAINE,20
+23,,VOTER,10
+231,,BUNDESTAG,10
+231,,MINIST OF FINANCE,10
+231,,PRESIDENT,10
+231,,WORLD FOOD PROGRAM,10
+232,,GERMAN,10
+232,,MILITARY,10
+232,,RUSSIAN,10
+232,,UKRAINE,30
+233,,ARGENTINA,2
+233,,ARGENTINE,8
+233,,GERMANY,40
+233,,REFUGEE,20
+233,,REGIME,10
+233,,SYRIAN,10
+233,,WARSAW,10
+234,,CHANCELLOR,10
+234,,CIVILIAN,10
+234,,CONSTITUTIONAL COURT,10
+234,,ENVIRONMENT MINIST,10
+234,,EUROPE,10
+234,,FRANCE,10
+234,,GAZA,10
+234,,GERMANY,12
+234,,GOVERNMENT,30
+234,,INTERIOR MINIST,10
+234,,ISRAELI,2
+234,,POPULATION,10
+234,,PRESIDENT,10
+234,,RED CROSS,10
+234,,RUSSIA,12
+234,,UKRAINE,10
+241,,BAVARIA,10
+241,,BOSS,20
+241,,EUROPE,10
+25,,GAZA,2
+25,,GERMAN,10
+26,,FOREIGN MINIST,102
+26,,ISRAEL,59
+26,,ISRAELI,68
+26,,POLITICIAN,72
+26,,PRESIDENT,112
+26,,UKRAINIAN,68
+27,,ISRAEL,2
+27,,US TREASURY,10
+30,,EUROPEAN,90
+30,,GERMANY,80
+30,,GOVERNMENT,82
+30,,PRESIDENT,75
+30,,UKRAINE,146
+31,,GOVERNMENT,20
+31,,MINIST OF JUSTICE,10
+31,,REPRESENTATIVES,10
+311,,A US,10
+311,,BAVARIA,10
+311,,BUSINESS,10
+311,,FINANCE MINIST,10
+311,,FRANCE,10
+311,,GERMAN,20
+311,,GERMANY,46
+311,,GOVERNMENT,10
+311,,INVESTOR,10
+311,,ITALY,10
+311,,MOSCOW,20
+311,,NETHERLANDS,10
+311,,UKRAINE,4
+311,,UKRAINIAN,10
+32,,NATO,10
+32,,TERRORIST ORGANIZATION,10
+33,,GOVERNMENT,20
+33,,KIEV,28
+33,,MILITARY,36
+33,,PALESTINIAN,16
+33,,UKRAINE,14
+331,,BANK,20
+331,,BUREAUCRACY,10
+331,,CONGRESS,6
+331,,EUROPEAN COMMISSION,10
+331,,GABON,10
+331,,GAZA,6
+331,,ISRAEL,4
+331,,MALE,10
+331,,SENATE,10
+331,,UKRAINE,10
+332,,EUROPEAN,10
+332,,FRANCE,10
+332,,FRENCH,10
+332,,GERMAN,8
+332,,GERMANY,2
+332,,MILITARY,30
+332,,SHIITE,10
+332,,SUNNI,10
+332,,UKRAINE,16
+332,,UKRAINIAN,10
+333,,GAZA,10
+333,,GOVERNMENT,10
+35,,GOVERNMENT,10
+353,,AMERICAN,10
+353,,EMPLOYEE,10
+353,,HOSPITAL,10
+353,,ISRAEL,16
+353,,ISRAELI,30
+353,,PALESTINIAN,20
+353,,PRISON,8
+353,,UKRAINIAN,10
+356,,DUBLIN,8
+356,,ISRAELI,10
+356,,POLAND,8
+356,,TERRORIST ORGANIZATION,10
+36,,CHANCELLOR,130
+36,,GERMANY,294
+36,,PRESIDENT,128
+36,,RUSSIA,163
+36,,UKRAINE,158
+39,,LITHUANIA,10
+40,,BUNDESTAG,410
+40,,GERMANY,514
+40,,GOVERNMENT,300
+40,,PRESIDENT,248
+40,,UKRAINE,355
+41,,ADMINISTRATION,20
+41,,BANK,20
+41,,EMPLOYER,20
+41,,FINANCE MINIST,40
+41,,GERMANY,40
+41,,HOUSE PHYSICIAN,20
+41,,IRAN,20
+41,,LAWYER,20
+41,,NEWS AGENCY,40
+41,,PHYSICIAN,20
+41,,PRESIDENT,33
+41,,RUSSIAN,18
+41,,SCIENTIST,20
+41,,UNITED STATES,12
+42,,GERMAN,110
+42,,GERMANY,142
+42,,RUSSIA,121
+42,,RUSSIAN,137
+42,,UKRAINE,114
+43,,GERMANY,138
+43,,GOVERNMENT,96
+43,,POLITICIAN,98
+43,,UKRAINE,99
+43,,UKRAINIAN,97
+44,,FRANCE,8
+44,,GERMANY,2
+44,,MUNICH,6
+44,,RUSSIA,10
+44,,UKRAINE,10
+45,,AMBASSADOR,10
+45,,EGYPT,10
+45,,EMPLOYER,10
+45,,GERMAN,12
+45,,GERMANY,8
+45,,INDUSTRY,10
+45,,ISRAELI,8
+45,,MEDIA,20
+45,,PRESIDENT,12
+45,,QATAR,40
+45,,RUSSIA,20
+45,,TRADE MINIST,10
+45,,TURKEY,20
+45,,UKRAINE,12
+46,,GERMANY,116
+46,,GOVERNMENT,123
+46,,ISRAELI,122
+46,,PRESIDENT,108
+46,,UKRAINE,150
+50,,EUROPEAN,68
+50,,GERMAN,108
+50,,GOVERNMENT,240
+50,,RUSSIAN,66
+50,,UKRAINE,100
+51,,GERMAN,334
+51,,GERMANY,440
+51,,PRESIDENT,357
+51,,UKRAINE,886
+51,,UKRAINIAN,333
+52,,BOSS,10
+52,,BRUSSELS,10
+52,,BUNDESTAG,10
+52,,CABINET,10
+52,,EUROPEAN,20
+52,,FINANCE MINIST,10
+52,,GERMANY,28
+52,,GOVERNMENT,8
+52,,HEALTH MINIST,10
+52,,HUMAN RIGHTS ORGANIZATION,10
+52,,JEWISH,10
+52,,LITHUANIA,4
+52,,MINIST,10
+52,,MINISTRY,10
+52,,NATO,10
+52,,NEWS AGENCY,10
+52,,REPRESENTATIVES,10
+52,,RUSSIA,10
+52,,SENATOR,10
+52,,SYRIA,4
+52,,WEST BANK,10
+53,,GAZA,32
+53,,GOVERNMENT,10
+53,,ISRAEL,10
+53,,ISRAELI,28
+53,,NATIONALS,10
+53,,PALESTINIAN,10
+53,,TERRORIST,10
+53,,TERRORIST ORGANIZATION,8
+53,,TURKEY,6
+54,,COLOMBIAN,10
+54,,DAMASCUS,10
+54,,EMBASSY,20
+54,,GERMANY,48
+54,,ISRAEL,22
+54,,NORWAY,10
+54,,PALESTINE,42
+54,,TIBET,10
+55,,CHANCELLOR,10
+55,,GAZA,2
+55,,ISRAEL,2
+55,,NATIONALS,10
+55,,PRESIDENT,10
+55,,TANZANIA,10
+55,,WARSAW,8
+56,,RUSSIA,10
+57,,CONGO,40
+57,,EUROPEAN,60
+57,,FRENCH,36
+57,,GERMANY,76
+57,,GOVERNMENT,60
+57,,HUNGARY,52
+57,,JOURNALIST,40
+57,,KAZAKHSTAN,40
+57,,RUSSIAN,36
+57,,SWEDEN,40
+57,,UKRAINE,36
+60,,GOVERNMENT,80
+60,,PALESTINIAN,38
+60,,PARLIAMENT,40
+60,,RUSSIAN,52
+60,,UKRAINE,154
+61,,ADMINISTRATION,10
+61,,CANADIAN,18
+61,,EGYPT,10
+61,,FIGHTER,10
+61,,GERMAN,40
+61,,GERMANY,10
+61,,GOVERNMENT,20
+61,,INDUSTRY,28
+61,,LEBANON,10
+61,,MEXICO,20
+61,,RULER,10
+61,,RUSSIA,10
+61,,SCHOOL,10
+61,,SERBIA,20
+61,,UKRAINE,20
+62,,ARMED FORCES,10
+62,,CIVILIAN,10
+62,,EUROPEAN,10
+62,,ISRAELI,6
+62,,JAPAN,10
+62,,LIBERATION ARMY,10
+62,,LITHUANIA,20
+62,,MINIST OF DEFENSE,20
+62,,RESERVIST,6
+62,,RUSSIA,2
+62,,RUSSIAN,10
+62,,UKRAINE,2
+62,,UKRAINIAN,8
+64,,FIREFIGHTER,10
+64,,INTELLIGENCE CHIEF,10
+64,,ISRAEL,4
+64,,ISRAELI,16
+64,,ITALIAN,14
+64,,MAYOR,10
+64,,MEDIA,10
+64,,MILITARY INTELLIGENCE,20
+64,,NEWS AGENCY,10
+64,,RUSSIAN,10
+64,,SOUTH KOREA,20
+70,,GAZA,30
+70,,GERMANY,74
+70,,GOVERNMENT,30
+70,,MILITARY,68
+70,,NATO,40
+70,,PROTESTER,40
+70,,RUSSIAN,30
+70,,UKRAINE,86
+71,,EUROPE,58
+71,,EUROPEAN,62
+71,,GERMAN,84
+71,,GOVERNMENT,60
+71,,UKRAINE,63
+72,,AIRCRAFT CARRIER,20
+72,,ARMY,20
+72,,GERMANY,20
+72,,GOVERNMENT,30
+72,,MEDIA,20
+72,,MILITARY,140
+72,,RUSSIA,20
+72,,RUSSIAN,30
+72,,SPECIAL FORCES,20
+72,,SYRIAN,24
+72,,UKRAINE,50
+72,,UKRAINIAN,20
+73,,CIVILIAN,20
+73,,EGYPT,16
+73,,GAZA,80
+73,,ISRAEL,30
+73,,ISRAELI,18
+73,,TERRORIST ORGANIZATION,20
+73,,WORLD FOOD PROGRAM,20
+74,,ISRAELI,18
+74,,LEBANON,8
+75,,GOVERNMENT,10
+75,,REFUGEE,20
+80,,GERMAN,64
+80,,GERMANY,100
+80,,GOVERNMENT,96
+80,,PRESIDENT,70
+80,,UKRAINE,106
+81,,BAVARIA,10
+81,,CONSTITUTIONAL COURT,30
+81,,ITALY,10
+81,,POLITICIAN,10
+81,,TOURIST,10
+83,,ARGENTINA,10
+83,,BUREAUCRACY,10
+83,,CHANCELLOR,20
+83,,GERMANY,12
+83,,GOVERNMENT,10
+83,,HEALTH MINIST,10
+83,,MEXICO,10
+83,,POLITICIAN,10
+83,,TELEVISION,10
+831,,AGRICULTURE MINIST,10
+831,,COMPANY,10
+831,,FINANCE MINIST,10
+831,,FOREIGN MINIST,10
+831,,FRANCE,10
+831,,GAZA,8
+831,,GOVERNMENT,50
+831,,INTERIOR MINIST,10
+831,,ISRAEL,10
+831,,ISRAELI,8
+831,,JERSEY,2
+831,,JUSTICE MINISTER,10
+831,,MEDIA,20
+831,,OPPOSITION LEADER,10
+831,,POLITICIAN,10
+831,,POPULATION,10
+831,,PREMIER,10
+831,,PRODUCER,10
+831,,ROMANIA,8
+831,,US GOVERNMENT,20
+833,,GERMAN,10
+833,,PALESTINIAN,10
+833,,PARLIAMENT,10
+833,,PRESIDENT,2
+833,,VIETNAM,2
+84,,EMPLOYEE,58
+84,,ISRAEL,172
+84,,ISRAELI,80
+84,,PALESTINIAN,108
+84,,PRISON,82
+841,,GERMAN,38
+841,,ISRAEL,58
+841,,ISRAELI,22
+841,,PALESTINIAN,38
+841,,RUSSIA,32
+841,,UKRAINE,26
+842,,EMPLOYEE,2
+842,,GERMAN,8
+842,,MEDIA,10
+842,,RUSSIA,7
+842,,UKRAINE,10
+85,,LEBANON,4
+85,,WAR MACHINE,6
+863,,EGYPT,8
+863,,GAZA,2
+863,,ISRAEL,2
+863,,ISRAELI,8
+863,,SYRIA,10
+871,,GERMAN,10
+871,,GERMANY,16
+871,,KIEV,6
+871,,MILITARY,10
+871,,PRESIDENT,10
+871,,RUSSIAN,14
+871,,UKRAINE,12
+873,,ISRAEL,2
+873,,ISRAELI,10
+873,,RUSSIA,10
+873,,SYRIA,10
+873,,UKRAINE,20
+874,,GAZA,86
+874,,ISRAEL,36
+874,,ISRAELI,62
+874,,MILITARY,28
+874,,RUSSIA,32
+90,,GERMANY,196
+90,,MEDIA,130
+90,,POLICE,332
+90,,PROSECUTOR,110
+90,,RUSSIAN,114
+94,,ATTORNEY GENERAL,10
+94,,RUSSIAN,10

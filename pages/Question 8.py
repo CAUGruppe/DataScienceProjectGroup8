@@ -1,4 +1,3 @@
-# Datei: pages/2_RQ4_Top_Actors.py
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -23,25 +22,23 @@ st.divider()
 # Daten laden
 # --------------------------------------------------
 @st.cache_data
-def load_rq4_event_actor_top():
+def load_rq8_event_actor_top():
     # Pfad anpassen, je nachdem, wo du die Datei abgelegt hast
-    return pd.read_csv("data/rq4_event_actor_top.csv")
+    return pd.read_csv("/Users/beytuygt/DataScienceProjectGroup8/Data/rq8_event_actor_top.csv")
 
 
 @st.cache_data
-def load_rq4_top_events():
+def load_rq8_top_events():
     # Pfad ggf. an Projektstruktur anpassen
     return pd.read_csv("/Users/beytuygt/DataScienceProjectGroup8/Data/rq8_top_events_labeled.csv")
 
 
 @st.cache_data
 def load_rq8_events_non_unknown():
-    # Falls du separat eine gefilterte Datei geschrieben hast – sonst kannst du
-    # diese Funktion auch auf load_rq4_top_events() mappen
     return pd.read_csv("/Users/beytuygt/DataScienceProjectGroup8/Data/rq8_events_non_unknown.csv")
 
 
-event_actor_top = load_rq4_event_actor_top()
+event_actor_top = load_rq8_event_actor_top()
 
 
 # Datentypen normalisieren
