@@ -11,7 +11,7 @@ st.set_page_config(page_title="RQ6 | Sentiment by Country", layout="wide")
 
 st.markdown("""
 ### Research Question 6
-Which countries receive the most positive, neutral or negative sentiment in German media coverage and how does this sentiment vary between Tagesschau and ZDF
+Which countries receive the most positive, neutral or negative sentiment in German media coverage and how does this sentiment vary between Tagesschau and ZDF?
 """)
 
 st.divider()
