@@ -85,7 +85,9 @@ st.markdown("""In this Plot you can see the evolution of the monthly average ton
             Article with a negative tone tend to polarize more with their language. By plotting the trajectory it will get even clearer.
             """)
 
-
+st.markdown("""
+### Research Question 7
+How does the sentiment (tone) of China-related coverage on Foxnews correlate emotional intensity (polarity) compared to Tagesschau?""")
 
 st.plotly_chart(fig, use_container_width=True)
 
