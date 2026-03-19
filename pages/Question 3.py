@@ -99,10 +99,10 @@ if 'df' in locals() or 'df' in globals():
     df_clean = prepare_data(df)
     
     # Sidebar für Dynamik
-    st.sidebar.header("Filter & Auswahl")
+    st.sidebar.header("Filter")
     all_actors = df_clean['PersonName'].value_counts().head(20).index.tolist()
     selected_actors = st.sidebar.multiselect(
-        "Wähle Akteure zum Vergleich:", 
+        "Choose someone for comparison:", 
         options=all_actors, 
         default=all_actors[:3]
     )
@@ -118,5 +118,3 @@ if 'df' in locals() or 'df' in globals():
         plot_dynamic_scatter(df_clean, selected_actors)
         
     st.info("💡 Use the side bar to add mentioned actors. In the scatterplot, the size of the bubble equals to the amount of articles around that person.")
-else:
-    st.error("Daten konnten nicht geladen werden. Bitte prüfe deine utils.py!")
