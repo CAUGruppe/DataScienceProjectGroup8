@@ -79,8 +79,8 @@ if df_sel.empty:
     st.warning("No actors found for this event.")
 else:
     n_actors = len(df_sel)
-    base_height = 300          # Mindesthöhe
-    per_actor = 30             # Pixel pro Actor
+    base_height = 600          # Mindesthöhe
+    per_actor = 40             # Pixel pro Actor
 
     height = max(base_height, per_actor * n_actors)
 
