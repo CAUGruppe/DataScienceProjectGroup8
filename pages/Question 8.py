@@ -43,7 +43,37 @@ event_actor_top = load_rq8_event_actor_top()
 
 # Datentypen normalisieren
 event_actor_top["EventCode"] = event_actor_top["EventCode"].astype(str)
+rq8_top_events = load_rq8_top_events()
+rq8_events_non_unknown = load_rq8_events_non_unknown()
+events_tone = rq8_events_non_unknown[["EventCode", "avg_tone"]].copy()
+events_tone["EventCode"] = events_tone["EventCode"].astype(str)
 
+event_actor_with_tone = event_actor_top.merge(
+    events_tone,
+    on="EventCode",
+    how="left",
+)
+top_k_3d = 20
+actors_agg = (
+    event_actor_with_tone
+    .groupby("ActorName", as_index=False)
+    .agg(
+        total_articles=("total_articles", "sum"),
+        avg_tone=("avg_tone", "mean"),      # Durchschnitt über alle Eventtypen
+        num_events=("EventCode", "nunique") # in wie vielen Eventtypen Actor vorkommt
+    )
+    .sort_values("total_articles", ascending=False)
+    .head(top_k_3d)
+)
+top_k_overall = 15  # oder 10 – wie du magst
+
+top_actors_overall = (
+    event_actor_top
+    .groupby("ActorName", as_index=False)["total_articles"]
+    .sum()
+    .sort_values("total_articles", ascending=False)
+    .head(top_k_overall)
+)
 
 # Liste der auswählbaren Events
 event_options = (
@@ -147,14 +177,75 @@ else:
 
 st.markdown("""
 ### Interpretation
-This bubble chart show each event type by its average tone and the total number of related articles where larger bubbles represent events with higher overall media attention and the color indicates the average tone. In Addition to that the sliders allow you to adjust the range of total articles.\n
-            
+This bubble chart shows each event type by its average tone and the total number of related articles where larger bubbles represent events with higher overall media attention and the color indicates the average tone. In Addition to that the sliders allow you to adjust the range of total articles.
+       We can identify that most event types with high media attention tend to have a negative average tone, which may reflect the nature of news reporting that often focuses on conflicts, crises, and other negative events. However, there are also some event types with a more neutral or slightly positive tone, indicating that not all widely covered events are negative. The distribution of bubbles can help us understand which types of events are most prominent in the media and how they are generally portrayed in terms of sentiment.     
 """)
 st.divider()
 
-
 # --------------------------------------------------
-# FIGURE 2: Event-Auswahl für Top-Actors
+# FIGURE 2: Top-Actors Overall
+# --------------------------------------------------
+
+st.markdown("### Top actors overall: attention, tone, and event spread")
+
+if actors_agg.empty:
+    st.warning("No actors found for 3D view.")
+else:
+    fig_3d = px.scatter_3d(
+        actors_agg,
+        x="avg_tone",          # Tone
+        y="total_articles",    # Artikel
+        z="num_events",        # Event-Typen
+        size="total_articles",
+        color="avg_tone",
+        hover_name="ActorName",
+        hover_data={
+            "total_articles": True,
+            "avg_tone": True,
+            "num_events": True,
+        },
+        color_continuous_scale="Viridis",
+        title=f"Top {top_k_3d} actors: media attention, tone, and event spread",
+        height=700,
+    )
+
+    max_size = actors_agg["total_articles"].max()
+
+    fig_3d.update_traces(
+        marker=dict(
+            sizemode="diameter",
+            sizeref=max_size / (10**2),  # größerer Wert -> kleinere Bubbles
+            sizemin=3,
+            line=dict(width=1.0, color="#333333"),
+            opacity=0.85,
+        ),
+        hovertemplate=(
+            "Actor: %{hovertext}<br>"
+            "Total Articles: %{y}<br>"
+            "Avg tone: %{x:.2f}<br>"
+            "Event types: %{z}<extra></extra>"
+        ),
+    )
+
+    fig_3d.update_layout(
+        scene=dict(
+            xaxis_title="Average tone",
+            yaxis_title="Total Articles",
+            zaxis_title="Number of event types",
+        ),
+        margin=dict(l=0, r=0, t=80, b=0),
+    )
+
+    st.plotly_chart(fig_3d, use_container_width=True)
+
+st.markdown("""
+### Interpretation
+Media attention is highly concentrated on a few key actors who appear across many different event types. As an example, Ukraine provides a good example for this pattern. With 5513 articles across 55 event types, Ukraine is the most covered actor in our dataset, reflecting its central role in german news during the period analyzed. The average tone for Ukraine is -3.60, indicating that the coverage is mostly negative, likely due to the ongoing conflict and associated crises. This highlights how certain actors can dominate media attention and how their portrayal can be shaped by the nature of the events they are involved in.
+            """)
+
+st.divider()
+# --------------------------------------------------
+# FIGURE 3: Event-Auswahl für Top-Actors
 # --------------------------------------------------
 st.markdown("### Top actors per event type")
 
@@ -235,4 +326,14 @@ else:
     **{selected_event}**, based on the number of associated articles.
     """)
 
+st.markdown("""
+### Interpretation
+The chart makes it possible to see wether attention is concentrated on a few key actors or distributed across many different actors and how the acotr landscape changes between different event types.
+            """)
+
 st.divider()
+
+st.markdown("""
+### Overall Answer of RQ8
+Across all event types a few events dominate media attention and these events tend to have a more negative average tone. At the same time, within each event type a small set of actors dominate the coverage, reflecting the media's focus on key figures associated with major events. This suggests that media attention is often concentrated on a few high-profile events and actors, which can shape public perception and discourse around these topics. Use of Unconvetional Mass Violence is the most frequent event type covering over 10.000 articles in the dataset. It refers to extreme forms of material violence such as mass killings, large-scale violent acts and so on. The top actor associated with this event type is Ukraine due to the ongoing conflict and war.
+            """)
