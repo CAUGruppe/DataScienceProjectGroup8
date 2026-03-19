@@ -3,17 +3,21 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-st.set_page_config(page_title="RQ4 | Top Actors by Event", layout="wide")
+
+st.set_page_config(page_title="RQ8 | Events & Top Actors", layout="wide")
+
 
 # --------------------------------------------------
-# RQ4 – Titel & Beschreibung
+# RQ8 – Titel & Beschreibung
 # --------------------------------------------------
 st.markdown("""
-### Research Question 4
-How frequently are specific political leaders (Merz, Trump, Biden, and Scholz) associated with positive and negative tone in news coverage across two legislative periods? 
+### Research Question 8  
+Which events generate the most media attention in German media outlets, and which actors are most frequently associated with these events?
 """)
 
+
 st.divider()
+
 
 # --------------------------------------------------
 # Daten laden
@@ -23,10 +27,26 @@ def load_rq4_event_actor_top():
     # Pfad anpassen, je nachdem, wo du die Datei abgelegt hast
     return pd.read_csv("data/rq4_event_actor_top.csv")
 
+
+@st.cache_data
+def load_rq4_top_events():
+    # Pfad ggf. an Projektstruktur anpassen
+    return pd.read_csv("/Users/beytuygt/DataScienceProjectGroup8/Data/rq8_top_events_labeled.csv")
+
+
+@st.cache_data
+def load_rq8_events_non_unknown():
+    # Falls du separat eine gefilterte Datei geschrieben hast – sonst kannst du
+    # diese Funktion auch auf load_rq4_top_events() mappen
+    return pd.read_csv("/Users/beytuygt/DataScienceProjectGroup8/Data/rq8_events_non_unknown.csv")
+
+
 event_actor_top = load_rq4_event_actor_top()
+
 
 # Datentypen normalisieren
 event_actor_top["EventCode"] = event_actor_top["EventCode"].astype(str)
+
 
 # Liste der auswählbaren Events
 event_options = (
@@ -36,9 +56,93 @@ event_options = (
 )
 event_options = sorted(event_options)
 
+
 # --------------------------------------------------
-# UI: Event-Auswahl
+# FIGURE 1: Bubble-Chart über alle nicht-unknown Events
 # --------------------------------------------------
+events_non_unknown = load_rq8_events_non_unknown()
+
+st.markdown("### Event types: attention and tone")
+
+# Optionaler Filter: minimale Artikelzahl pro Eventtyp
+min_articles = st.slider(
+    "Minimum number of articles per event type",
+    min_value=0,
+    max_value=int(events_non_unknown["total_articles"].max()),
+    value=500,
+    step=100,
+)
+
+events_filtered = events_non_unknown[
+    events_non_unknown["total_articles"] >= min_articles
+].copy()
+
+if events_filtered.empty:
+    st.warning("No event types match the current filter.")
+else:
+    fig_events = px.scatter(
+        events_filtered,
+        x="avg_tone",
+        y="total_articles",
+        size="total_articles",
+        color="avg_tone",
+        hover_name="EventDescription",
+        hover_data={
+            "EventCode": True,
+            "num_event_rows": True,
+            "total_articles": False,
+            "avg_tone": False,
+        },
+        # etwas „kräftigere“ Skala statt sehr heller Mitte
+        color_continuous_scale="Viridis",  # oder "Plasma", "Turbo"
+        title="Media attention and average tone across event types",
+        labels={
+            "avg_tone": "Average tone",
+            "total_articles": "Total Articles",
+        },
+        height=700,
+    )
+
+    fig_events.update_traces(
+        marker=dict(
+            sizemode="area",
+            sizeref=events_filtered["total_articles"].max() / (40**2),
+            line=dict(width=1.2, color="#333333"),  # dunkler Rand für alle Bubbles
+            opacity=0.9,
+        ),
+        hovertemplate=(
+            "Event: %{hovertext}<br>"
+            "EventCode: %{customdata[0]}<br>"
+            "Total Articles: %{y:,}<br>"
+            "Avg tone: %{x:.2f}<extra></extra>"
+        ),
+    )
+
+    fig_events.update_layout(
+        xaxis=dict(
+            zeroline=True,
+            zerolinecolor="lightgray",
+        ),
+        yaxis=dict(
+            title="Total Articles",
+            tickformat=",",
+        ),
+        coloraxis_colorbar=dict(title="Avg tone"),
+        plot_bgcolor="#f5f5f8",   # leicht grau statt rein weiß
+        paper_bgcolor="white",
+        margin=dict(l=80, r=40, t=80, b=60),
+    )
+
+    st.plotly_chart(fig_events, use_container_width=True)
+
+st.divider()
+
+
+# --------------------------------------------------
+# FIGURE 2: Event-Auswahl für Top-Actors
+# --------------------------------------------------
+st.markdown("### Top actors per event type")
+
 col1, col2 = st.columns([2, 3])
 
 with col1:
@@ -59,15 +163,16 @@ with col1:
 with col2:
     st.markdown(
         """
-        This visualization shows the most frequently mentioned actors for the selected event type,
+        This visualization shows the actors most frequently mentioned for the selected event type,
         based on the total number of related news articles.
         """
     )
 
 st.divider()
 
+
 # --------------------------------------------------
-# Daten für Auswahl filtern
+# Daten für Auswahl filtern (Top Actors)
 # --------------------------------------------------
 df_sel = (
     event_actor_top[event_actor_top["EventLabel"] == selected_event]
@@ -78,38 +183,34 @@ df_sel = (
 if df_sel.empty:
     st.warning("No actors found for this event.")
 else:
-    n_actors = len(df_sel)
-    base_height = 600          # Mindesthöhe
-    per_actor = 40             # Pixel pro Actor
+    df_sel = df_sel.sort_values("total_articles", ascending=False)
 
-    height = max(base_height, per_actor * n_actors)
-
-    fig = px.bar(
+    fig = px.pie(
         df_sel,
-        x="total_articles",
-        y="ActorName",
-        color="ActorName",
-        orientation="h",
-        color_discrete_sequence=px.colors.sequential.Blues_r,
+        names="ActorName",
+        values="total_articles",
+        hole=0.5,  # 0 = klassische Torte, 0.5 = Donut
         title=f"Top {top_k} actors for '{selected_event}'",
-        labels={
-            "total_articles": "Total Articles",
-            "ActorName": "Actor",
-        },
-        height=height,
-    )
-
-
-    fig.update_layout(
-        xaxis_title="Total number of articles",
-        yaxis_title="Actor",
-        showlegend=False,
-        plot_bgcolor="white",
-        paper_bgcolor="white",
+        color="ActorName",
+        color_discrete_sequence=px.colors.sequential.Blues_r,
     )
 
     fig.update_traces(
-        hovertemplate="Actor: %{y}<br>Total Articles: %{x}<extra></extra>"
+        textposition="inside",
+        textinfo="percent+label",
+        hovertemplate=(
+            "Actor: %{label}<br>"
+            "Total Articles: %{value}<br>"
+            "Share: %{percent}"
+            "<extra></extra>"
+        ),
+    )
+
+    fig.update_layout(
+        showlegend=False,
+        plot_bgcolor="white",
+        paper_bgcolor="white",
+        margin=dict(t=80, b=40, l=40, r=40),
     )
 
     st.plotly_chart(fig, use_container_width=True)
