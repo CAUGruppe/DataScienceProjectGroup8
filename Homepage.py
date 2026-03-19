@@ -69,4 +69,4 @@ We utilize the **GDELT News API**, which scans global news in real-time..
 This project was developed as part of our Data Science Project Course.
 """)
 
-st.caption("Created by Jeremy, Milad & Beytu | Group 8")
+st.caption("Created by Jeremy, Milad, Kaan & Beytu | Group 8")
