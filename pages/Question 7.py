@@ -46,8 +46,9 @@ fig = px.scatter(
     hover_name="DocumentIdentifier",
     range_x=[-10, 5], 
     range_y=[0, 15],
-    title="Die Evolution der Berichterstattung (Monat für Monat)"
+    title="Evolution of Article releases  (Month after Month)"
 )
+
 
 st.plotly_chart(fig, use_container_width=True)
 
@@ -79,10 +80,16 @@ fig = px.line(
 # Das Design etwas "sauberer" machen
 fig.update_traces(line=dict(width=3), marker=dict(size=8))
 fig.add_vline(x=0, line_dash="dash", line_color="gray", opacity=0.5)
+st.markdown("""In this Plot you can see the evolution of the monthly average tone for foxnews and tagesschau.
+            Whats interesting here is the movement from the top left to the bottom right. This indicates that in general
+            Article with a negative tone tend to polarize more with their language. By plotting the trajectory it will get even clearer.
+            """)
+
+
 
 st.plotly_chart(fig, use_container_width=True)
 
-
+st.divider()
 
 
 
@@ -111,8 +118,11 @@ fig.colorbar(hb2, ax=ax2, label='Amount of Articles')
 for ax in [ax1, ax2]:
     ax.axvline(0, color='black', linestyle='--', alpha=0.3)
 
-plt.suptitle('Comparison of coverage (China related topics)', fontsize=16)
+plt.suptitle('Comparison of coverage', fontsize=16)
 plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 
-
 st.pyplot(fig)
+st.markdown("""
+            The Hexbin plot supports our thesis. The Red cloud getting denser towards the top left indicates that Foxnews
+            seems to polarize way more with their language, when it comes to negative articles, compared to Tagesschau.
+            """)

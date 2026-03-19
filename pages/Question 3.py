@@ -81,6 +81,8 @@ def plot_dynamic_scatter(df_exploded, selected_actors):
 # --- MAIN APP FLOW ---
 st.set_page_config(page_title="Actor Analysis", layout="wide")
 
+
+
 # Daten laden (deine utils verwenden!)
 # import utils
 df = utils.load_data() 
@@ -94,6 +96,14 @@ df[['tone','positive_score','negative_score','polarity', 'activity_density','sel
 
 
 st.title("🎭 Actor Fingerprint Analysis")
+
+
+
+st.markdown("""
+### Research Question 3
+How do the media fingerprints of the four most prominent figures differ in terms of emotional resonance (Polarity), collective framing (Self-Group Density), and action-oriented reporting (Activity Density)?
+""")
+
 
 if 'df' in locals() or 'df' in globals():
     df_clean = prepare_data(df)
@@ -112,7 +122,10 @@ if 'df' in locals() or 'df' in globals():
     with col1:
         st.subheader("Radar Fingerprint")
         plot_radar_chart(df_clean, selected_actors)
-
+        st.markdown("""
+        This radar chart compares the media profiles of key actors using normalized GDELT metrics like Polarity, Tone, and Activity. 
+        It reveals how different individuals are framed, highlighting shifts between factual, emotional, or action-oriented reporting.
+        """)
     with col2:
         st.subheader("Interactive Metrics")
         plot_dynamic_scatter(df_clean, selected_actors)

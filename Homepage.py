@@ -6,7 +6,7 @@ st.set_page_config(page_title="Group 8 | Media Analysis", layout="wide")
 
 # --- Header ---
 st.title("📊 Group 8: Media Analysis Project")
-st.subheader("Exploring Global News Trends with GDELT & World Bank Data")
+st.subheader("Exploring Global News Trends with GDELT")
 
 st.markdown("""
 Welcome to our university project! We are investigating how the media shapes our view of the world. 
@@ -59,7 +59,7 @@ with c1:
     st.page_link("pages/Question 2.py", label="**RQ2:** Framing of Social Movements", icon="📢")
 with c2:
     st.page_link("pages/Question 8.py", label="**RQ8:** Which events generate the most attention?", icon="🔥")
-
+st.image("images/SocialMovements.jpg")
 st.divider()
 
 # --- Footer / Data Source ---
