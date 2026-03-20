@@ -30,7 +30,8 @@ def load_rq4_data():
         df["DATE"].astype(str).str[:14], format="%Y%m%d%H%M%S"
     )
     df["Date"] = df["Datetime"].dt.date
-    df["Tone"] = df["V2Tone"].str.split(",").str.astype(float)
+    df["Tone"] = df["V2Tone"].str.split(",").str[0].astype(float)
+
 
     leaders = ["Biden", "Trump", "Scholz", "Merz"]
 
