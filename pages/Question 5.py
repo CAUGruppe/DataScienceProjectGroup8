@@ -20,7 +20,7 @@ st.divider()
 @st.cache_data
 def load_rq5_data():
     df = pd.read_csv(
-        "tagesschau_zdf_pbs_events.csv",
+        "Data/tagesschau_zdf_pbs_events.csv",
         dtype={"EventCode": str},          # ← NEU: EventCode als String laden
         on_bad_lines="skip",
         low_memory=False,

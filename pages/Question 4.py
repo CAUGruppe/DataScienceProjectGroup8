@@ -5,6 +5,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import utils
 
+
 # --------------------------------------------------
 # Grundkonfiguration
 # --------------------------------------------------
@@ -18,14 +19,12 @@ How frequently are specific political leaders (Merz, Trump, Biden, and Scholz) a
 st.divider()
 
 # --------------------------------------------------
-# Daten laden & vorbereiten (direkt aus GKG-CSV)
+# Daten laden & vorbereiten
 # --------------------------------------------------
 @st.cache_data
 def load_rq4_data():
-    # 1. Daten aus Parquet laden
-    df = utils.load_data().copy()
+    df = utils.load_data_rq4().copy()
 
-    # 2. Datums-/Ton-Vorbereitung (wie im Notebook)
     df["Datetime"] = pd.to_datetime(
         df["DATE"].astype(str).str[:14], format="%Y%m%d%H%M%S"
     )
@@ -46,7 +45,6 @@ def load_rq4_data():
     leaders_df = df[df["Leader"].notna()].copy()
     leaders_df["Date"] = pd.to_datetime(leaders_df["Date"])
 
-    # Tone-Kategorien
     tone_bins = [-100, -0.01, 0.01, 100]
     tone_labels = ["Negative", "Neutral/none", "Positive"]
     leaders_df["ToneCategory"] = pd.cut(
@@ -56,7 +54,6 @@ def load_rq4_data():
         right=True,
     )
 
-    # Länder-Mapping
     leaders_country = {
         "Scholz": "DE",
         "Merz": "DE",
@@ -65,7 +62,6 @@ def load_rq4_data():
     }
     leaders_df["Country"] = leaders_df["Leader"].map(leaders_country)
 
-    # Legislaturperioden
     def map_german_period(ts):
         ts = pd.Timestamp(ts)
         if pd.Timestamp("2021-12-08") <= ts <= pd.Timestamp("2025-05-06"):
@@ -104,7 +100,6 @@ def load_rq4_data():
         "PeriodUS2": "20.01.2025 – 16.03.2026",
     }
 
-    # Aggregation: Leader x Period x Tone
     counts = (
         leaders_df
         .groupby(["Leader", "PeriodLegis", "ToneCategory"], as_index=False, observed=True)
@@ -119,7 +114,6 @@ def load_rq4_data():
     counts_pct["Pct"] = 100 * counts_pct["NumArticles"] / counts_pct["TotalLeaderPeriod"]
     counts_pct["PeriodLabel"] = counts_pct["PeriodLegis"].map(period_label_map)
 
-    # Aggregation: DE/US x Tone
     totals_de_us = (
         leaders_df
         .groupby(["Country", "ToneCategory"], as_index=False, observed=True)
@@ -130,9 +124,9 @@ def load_rq4_data():
     return counts_pct, totals_de_us
 
 
-
 counts_pct, totals_de_us = load_rq4_data()
 
+# Ordnung & Farben
 # Ordnung & Farben
 tone_order = ["Positive", "Negative", "Neutral/none"]
 leader_order = ["Scholz", "Merz", "Biden", "Trump"]
@@ -143,12 +137,19 @@ tone_colors = {
     "Neutral/none": "gray",
 }
 
+# Mapping für schöne Perioden-Titel
+period_title_map = {
+    "08.12.2021 – 06.05.2025": "Legislative Period (Scholz): 08.12.2021–06.05.2025",
+    "06.05.2025 – 16.03.2026": "Legislative Period (Merz): 06.05.2025–16.03.2026",
+    "08.12.2021 – 20.01.2025": "Legislative Period (Biden): 08.12.2021–20.01.2025",
+    "20.01.2025 – 16.03.2026": "Legislative Period (Trump): 20.01.2025–16.03.2026",
+}
+
 # --------------------------------------------------
 # FIGURE 1: Stacked Bar – Tone per Leader & Legislative Period
 # --------------------------------------------------
 st.markdown("### Tone per leader and legislative period")
 
-# Auswahl: welche Leader-Gruppe anzeigen
 leader_group = st.radio(
     "Select leader group",
     options=["Germany (Scholz, Merz)", "US (Biden, Trump)"],
@@ -161,7 +162,6 @@ if leader_group == "Germany (Scholz, Merz)":
 else:
     selected_leaders = ["Biden", "Trump"]
 
-# Daten nach ausgewählter Gruppe filtern
 df_long = counts_pct[
     counts_pct["ToneCategory"].isin(tone_order)
     & counts_pct["Leader"].isin(selected_leaders)
@@ -174,11 +174,6 @@ df_long["ToneCategory"] = pd.Categorical(
     df_long["ToneCategory"], categories=tone_order, ordered=True
 )
 
-# einfache Heuristik: auf sehr schmalen Screens (z.B. Handy)
-# statt Facets zwei Charts untereinander zeichnen
-# Streamlit kennt st.runtime.scriptrunner.get_script_run_ctx().session_id, aber keine direkte Breite.
-# Daher: Toggle anbieten, der Nutzer:innen erlaubt, "Stacked layout" zu wählen.
-
 small_screen = st.checkbox(
     "Use stacked layout (better on small screens)",
     value=False,
@@ -188,7 +183,7 @@ base_height = 380
 height = base_height + 60 * (len(selected_leaders) - 2)
 
 if not small_screen:
-    # Standard: Facets nebeneinander
+    # Facet-Layout
     fig_bar = px.bar(
         df_long,
         x="Leader",
@@ -196,7 +191,7 @@ if not small_screen:
         color="ToneCategory",
         barmode="stack",
         facet_col="PeriodLabel",
-        facet_col_spacing=0.06,
+        facet_col_spacing=0.09,
         category_orders={
             "Leader": selected_leaders,
             "ToneCategory": tone_order,
@@ -234,6 +229,14 @@ if not small_screen:
         margin=dict(l=10, r=10, t=60, b=40),
     )
 
+    # Facet-Annotationen "Legislative period = ..." durch period_title_map ersetzen
+    def _update_ann(a):
+        # a.text z.B. "Legislative period = 08.12.2021 – 06.05.2025"
+        val = a.text.split("=")[-1].strip()
+        a.update(text=period_title_map.get(val, val))
+
+    fig_bar.for_each_annotation(_update_ann)
+
     st.plotly_chart(fig_bar, use_container_width=True)
 
 else:
@@ -242,6 +245,11 @@ else:
         sub = df_long[df_long["PeriodLabel"] == period_label].copy()
         if sub.empty:
             continue
+
+        # auch hier period_title_map nutzen
+        title_text = period_title_map.get(
+            period_label, f"Legislative period: {period_label}"
+        )
 
         fig_bar_single = px.bar(
             sub,
@@ -260,7 +268,7 @@ else:
                 "Leader": "Leader",
                 "ToneCategory": "Tone category",
             },
-            title=f"Legislative period: {period_label}",
+            title=title_text,
             custom_data=["ToneCategory", "NumArticles"],
         )
 
@@ -292,9 +300,6 @@ This stacked bar chart shows, for each leader and legislative period, the share 
 """)
 
 st.divider()
-
-
-
 
 # --------------------------------------------------
 # FIGURE 2: Overall tone distribution for DE vs US leaders
@@ -364,7 +369,7 @@ st.plotly_chart(fig_pies, use_container_width=True)
 
 st.markdown("""
 ### Interpretation
-These donut charts summarize the overall tone distribution for US leaders (Biden and Trump) and German leaders (Scholz and Merz) across the entire observation period. They show whether coverage is predominantly negative, positive, or neutral for each country bloc, and how large the neutral segment is compared to clearly evaluative reporting.
+These charts summarize the overall tone distribution for US leaders (Biden and Trump) and German leaders (Scholz and Merz) across the entire dataset period. They show whether coverage is predominantly negative, positive, or neutral for each country bloc, and how large the neutral segment is compared to clearly evaluative reporting. When interpreting these results, we need to be careful: although it may look as if both country groups have similar tone distributions, we have to keep in mind that there are far more articles about Biden and Trump in the dataset than about Scholz and Merz.
 """)
 
 st.divider()
