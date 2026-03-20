@@ -24,8 +24,15 @@ st.divider()
 # --------------------------------------------------
 @st.cache_data
 def load_rq4_data():
-    # Rohdaten aus utils (Parquet-Parts)
-    df = utils.load_data_rq4().copy()
+    # Direkt aus den Parquet-Parts laden, ohne utils
+    parts = [
+        "Data/gkg_partitioned_2021_part1.parquet",
+        "Data/gkg_partitioned_2021_part2.parquet",
+        "Data/gkg_partitioned_2021_part3.parquet",
+        "Data/gkg_partitioned_2021_part4.parquet",
+    ]
+    df_list = [pd.read_parquet(p) for p in parts]
+    df = pd.concat(df_list, ignore_index=True)
 
     df["Datetime"] = pd.to_datetime(
         df["DATE"].astype(str).str[:14], format="%Y%m%d%H%M%S"
@@ -124,6 +131,7 @@ def load_rq4_data():
     )
 
     return counts_pct, totals_de_us
+
 
 
 counts_pct, totals_de_us = load_rq4_data()
