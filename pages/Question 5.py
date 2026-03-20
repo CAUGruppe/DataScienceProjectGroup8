@@ -6,9 +6,6 @@ import utils
 
 st.set_page_config(page_title="RQ5 | Government Framing", layout="wide")
 
-# --------------------------------------------------
-# RQ5
-# --------------------------------------------------
 st.markdown("""
 ### Research Question 5
 How do the tone and framing of German media coverage of governments change during
@@ -24,9 +21,13 @@ st.divider()
 def load_rq5_data():
     df = pd.read_csv(
         "tagesschau_zdf_pbs_events.csv",
+        dtype={"EventCode": str},          # ← NEU: EventCode als String laden
         on_bad_lines="skip",
         low_memory=False,
     )
+    # ← NEU: Spaltennamen explizit setzen (wie im Notebook)
+    df.columns = ["SQLDATE", "SOURCEURL", "AvgTone", "NumArticles",
+                  "Actor1Name", "Actor2Name", "EventCode"]
     df["SQLDATE"] = pd.to_datetime(
         df["SQLDATE"].astype(str), format="%Y%m%d", errors="coerce"
     )
@@ -49,25 +50,39 @@ def label_outlet(url):
 df["outlet_group"] = df[url_col].map(label_outlet)
 
 # --------------------------------------------------
-# Government filter
+# Government filter  ← KOMPLETT ERSETZT (exakte Notebook-Logik)
 # --------------------------------------------------
-GOV_PATTERN = (
-    r"GERMANY|GERMAN GOVERNMENT|GERMAN FEDERAL|BUNDESTAG|BUNDESRAT|"
-    r"BUNDESREGIER|GERMAN CHANCELLOR|GERMAN MINISTER|GERMAN PARLIAMENT"
-)
+df_de = df[df["outlet_group"].notna()].copy()
 
-df_gov = df[
-    df["outlet_group"].notna()
-    & (
-        df["Actor1Name"].fillna("").str.upper().str.contains(GOV_PATTERN, regex=True) |
-        df["Actor2Name"].fillna("").str.upper().str.contains(GOV_PATTERN, regex=True)
+GOV_URL_KEYWORDS = [
+    "regierung", "bundestag", "kanzler", "minister", "scholz",
+    "ampel", "koalition", "bundesregierung", "spd", "cdu", "gruene", "fdp",
+    "bundesrat", "merz", "habeck", "baerbock", "lindner",
+]
+GOV_ACTORS = [
+    "GOVERNMENT", "CHANCELLOR", "MINISTER", "PARLIAMENT",
+    "POLITICIAN", "PRESIDENT", "PRIME MINISTER", "BUNDESRAT",
+]
+
+url_filter = df_de[url_col].str.lower().str.contains(
+    "|".join(GOV_URL_KEYWORDS), na=False
+)
+actor_filter = (
+    df_de["Actor1Name"].fillna("").str.upper().str.contains(
+        "|".join(GOV_ACTORS), na=False
+    ) |
+    df_de["Actor2Name"].fillna("").str.upper().str.contains(
+        "|".join(GOV_ACTORS), na=False
     )
-].copy()
+)
+code_filter = df_de["EventCode"].astype(str).str.match(r"0[1-8]")
+
+df_gov = df_de[url_filter | actor_filter | code_filter].copy()
 
 # --------------------------------------------------
 # Shared config
 # --------------------------------------------------
-OUTLETS = [o for o in ["Tagesschau", "ZDF"] if o in df_gov["outlet_group"].values]
+OUTLETS = ["Tagesschau", "ZDF"]
 
 OUTLET_COLORS = {
     "Tagesschau": "#1565C0",
@@ -139,7 +154,7 @@ monthly = (
 )
 monthly["Date"]      = monthly["YearMonth"].dt.to_timestamp()
 monthly["DateLabel"] = monthly["Date"].dt.strftime("%b %Y")
-monthly = monthly[monthly["n"] >= 1].sort_values("Date")
+monthly = monthly[monthly["n"] >= 3].sort_values("Date")   # ← n>=3 wie Notebook
 
 y_min = monthly["mean"].min() - 0.5
 y_max = monthly["mean"].max() + 0.8
@@ -272,7 +287,7 @@ st.divider()
 # Visualization 2 — Bubble Chart
 # --------------------------------------------------
 max_n = monthly["n"].max()
-monthly["BubbleSize"] = (monthly["n"] / max_n * 40).clip(lower=4, upper=40)
+monthly["BubbleSize"] = (monthly["n"] / max_n * 55).clip(lower=6)  # ← 55 & kein upper cap
 
 fig2 = go.Figure()
 
@@ -325,6 +340,28 @@ for outlet in OUTLETS:
 
 fig2.add_hline(y=0, line_width=1)
 
+# Bubble-Größen-Legende — innerhalb der X-Achse
+ref_sizes   = [50, 200, 500]
+x_ref       = monthly["Date"].max() + pd.DateOffset(months=2)
+x_range_end = monthly["Date"].max() + pd.DateOffset(months=5)
+
+fig2.add_annotation(
+    x=x_ref, y=y_max - 0.1, text="<b>Article Count</b>",
+    showarrow=False, font=dict(size=9, color="#555"), xanchor="center",
+)
+for i, ref_n in enumerate(ref_sizes):
+    fig2.add_trace(go.Scatter(
+        x=[x_ref], y=[y_max - 0.55 - i * 1.1],
+        mode="markers+text", showlegend=False, hoverinfo="skip",
+        marker=dict(
+            size=ref_n / max_n * 55, color="#9E9E9E", opacity=0.45,
+            line=dict(color="#757575", width=1), sizemode="diameter",
+        ),
+        text=[f" {ref_n}"],
+        textfont=dict(size=8.5, color="#555"),
+        textposition="middle right",
+    ))
+
 fig2.update_layout(
     title="Tone of German Government Coverage by Article Volume (Bubble Size = Article Count)",
     xaxis=dict(
@@ -332,7 +369,7 @@ fig2.update_layout(
         tickformat="%b %Y",
         range=[
             monthly["Date"].min() - pd.DateOffset(months=1),
-            monthly["Date"].max() + pd.DateOffset(months=1),
+            x_range_end,                                      # ← Platz für Legende
         ],
     ),
     yaxis=dict(title="Average Tone", zeroline=False, gridcolor="#f0f0f0"),
