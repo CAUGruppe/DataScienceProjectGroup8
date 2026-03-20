@@ -23,7 +23,7 @@ st.divider()
 @st.cache_data
 def load_rq5_data():
     df = pd.read_csv(
-        "Data/tagesschau_zdf_pbs_events.csv",
+        "tagesschau_zdf_pbs_events.csv",
         on_bad_lines="skip",
         low_memory=False,
     )
@@ -111,19 +111,19 @@ EVENTS_ANIM = [
         "label":    "Federal Election 2025",
         "prestart": pd.Timestamp("2025-01-12"),
         "postend":  pd.Timestamp("2025-03-23"),
-        "color":    "rgba(21, 101, 192, 0.10)",
+        "color":    "rgba(21, 101, 192, 0.15)",
     },
     {
         "label":    "EU Election 2024",
         "prestart": pd.Timestamp("2024-04-28"),
         "postend":  pd.Timestamp("2024-07-07"),
-        "color":    "rgba(46, 125, 50, 0.10)",
+        "color":    "rgba(46, 125, 50, 0.15)",
     },
     {
         "label":    "Coalition Collapse",
         "prestart": pd.Timestamp("2024-10-28"),
         "postend":  pd.Timestamp("2024-12-07"),
-        "color":    "rgba(183, 28, 28, 0.10)",
+        "color":    "rgba(183, 28, 28, 0.15)",
     },
 ]
 
@@ -325,31 +325,6 @@ for outlet in OUTLETS:
 
 fig2.add_hline(y=0, line_width=1)
 
-ref_sizes = [50, 200, 500]
-x_ref     = monthly["Date"].max() + pd.DateOffset(months=2)
-fig2.add_annotation(
-    x=x_ref, y=y_max - 0.1, text="Article Count",
-    showarrow=False, font=dict(size=9, color="#555"), xanchor="center",
-)
-for i, ref_n in enumerate(ref_sizes):
-    ref_px = ref_n / max_n * 40
-    fig2.add_trace(go.Scatter(
-        x=[x_ref],
-        y=[y_max - 0.55 - i * 0.9],
-        mode="markers+text",
-        showlegend=False,
-        hoverinfo="skip",
-        marker=dict(
-            size=ref_px,
-            color="#9E9E9E", opacity=0.45,
-            line=dict(color="#757575", width=1),
-            sizemode="diameter",
-        ),
-        text=[f"  {ref_n}"],
-        textfont=dict(size=8.5, color="#555"),
-        textposition="middle right",
-    ))
-
 fig2.update_layout(
     title="Tone of German Government Coverage by Article Volume (Bubble Size = Article Count)",
     xaxis=dict(
@@ -357,25 +332,15 @@ fig2.update_layout(
         tickformat="%b %Y",
         range=[
             monthly["Date"].min() - pd.DateOffset(months=1),
-            monthly["Date"].max() + pd.DateOffset(months=3),
+            monthly["Date"].max() + pd.DateOffset(months=1),
         ],
     ),
     yaxis=dict(title="Average Tone", zeroline=False, gridcolor="#f0f0f0"),
     legend=dict(orientation="h", y=1.12, x=0.5, xanchor="center", font=dict(size=13)),
     template="plotly_white",
     height=520,
-    margin=dict(t=130, b=80, l=60, r=130),
+    margin=dict(t=130, b=60, l=60, r=40),
     hovermode="closest",
-    annotations=[
-        dict(
-            text=(
-                f"Source: GDELT Events | Tagesschau n={n_ts:,}, ZDF n={n_zdf:,} | "
-                "Shaded areas = election windows (6 weeks pre/post)"
-            ),
-            xref="paper", yref="paper", x=0.5, y=-0.14,
-            showarrow=False, font=dict(size=10, color="gray"), xanchor="center",
-        ),
-    ],
 )
 
 st.plotly_chart(fig2, use_container_width=True)
@@ -417,12 +382,13 @@ for month in all_months:
         row = monthly[(monthly["outlet_group"] == outlet) & (monthly["Date"] == month)]
         bar_data.append({
             "outlet":   outlet,
-            "tone":     row["mean"].values[0] if len(row) > 0 else 0,
-            "n":        row["n"].values[0]    if len(row) > 0 else 0,
+            "tone":     row["mean"].values[0] if len(row) > 0 else None,
+            "n":        int(row["n"].values[0]) if len(row) > 0 else 0,
             "has_data": len(row) > 0,
         })
 
     event_label = f" ⚑ {ev['label']}" if ev else ""
+    bg_color    = ev["color"] if ev else "white"
 
     frames.append(go.Frame(
         data=[
@@ -464,20 +430,22 @@ for month in all_months:
                 f"Monthly AvgTone – German Government Coverage (RQ5)<br>"
                 f"<span style='font-size:13px'>{month_str}{event_label}</span>"
             ),
-            paper_bgcolor=ev["color"] if ev else "white",
+            paper_bgcolor=bg_color,
+            plot_bgcolor="white",
         ),
     ))
 
 first_month = all_months[0]
 first_str   = pd.Timestamp(first_month).strftime("%b %Y")
+first_ev    = get_event_anim(pd.Timestamp(first_month))
 
 init_data = []
 for outlet in OUTLETS:
     row = monthly[(monthly["outlet_group"] == outlet) & (monthly["Date"] == first_month)]
     init_data.append({
         "outlet":   outlet,
-        "tone":     row["mean"].values[0] if len(row) > 0 else 0,
-        "n":        row["n"].values[0]    if len(row) > 0 else 0,
+        "tone":     row["mean"].values[0] if len(row) > 0 else None,
+        "n":        int(row["n"].values[0]) if len(row) > 0 else 0,
         "has_data": len(row) > 0,
     })
 
@@ -486,7 +454,10 @@ fig3 = go.Figure(
         go.Bar(
             x=[b["outlet"] for b in init_data],
             y=[b["tone"] if b["has_data"] else 0 for b in init_data],
-            marker_color=[OUTLET_COLORS[b["outlet"]] for b in init_data],
+            marker_color=[
+                OUTLET_COLORS[b["outlet"]] if b["has_data"] else "rgba(0,0,0,0)"
+                for b in init_data
+            ],
             marker_line=dict(color="white", width=1.5),
             opacity=0.85,
             width=0.45,
@@ -538,7 +509,8 @@ fig3.update_layout(
         zerolinecolor="gray",
         zerolinewidth=1.2,
     ),
-    template="plotly_white",
+    plot_bgcolor="white",
+    paper_bgcolor=first_ev["color"] if first_ev else "white",
     height=500,
     margin=dict(t=120, b=80, l=60, r=40),
     updatemenus=[
@@ -601,8 +573,10 @@ st.markdown("""
 ### Interpretation
 This animated bar chart steps through each month to compare the average tone of
 government coverage between Tagesschau and ZDF. The background tint changes colour
-during election periods to signal politically heightened windows. 
-Because of missing data in the dataset of ZDF sometimes
+during election periods to signal politically heightened windows. Both outlets exhibit
+slightly elevated tone during election run-up periods, with the Coalition Collapse
+(November 2024) and the Federal Election 2025 standing out as the most distinct
+phases in the time series. Because of missing data in the dataset of ZDF sometimes
 the Chart is empty at that timeframe, which makes a founded Interpretation impossible.
 """)
 
