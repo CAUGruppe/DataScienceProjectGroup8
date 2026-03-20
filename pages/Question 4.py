@@ -174,57 +174,117 @@ df_long["ToneCategory"] = pd.Categorical(
     df_long["ToneCategory"], categories=tone_order, ordered=True
 )
 
-# Dynamische Höhe: weniger Leader -> niedrigere Figur (besser für Mobile)
+# einfache Heuristik: auf sehr schmalen Screens (z.B. Handy)
+# statt Facets zwei Charts untereinander zeichnen
+# Streamlit kennt st.runtime.scriptrunner.get_script_run_ctx().session_id, aber keine direkte Breite.
+# Daher: Toggle anbieten, der Nutzer:innen erlaubt, "Stacked layout" zu wählen.
+
+small_screen = st.checkbox(
+    "Use stacked layout (better on small screens)",
+    value=False,
+)
+
 base_height = 380
 height = base_height + 60 * (len(selected_leaders) - 2)
 
-fig_bar = px.bar(
-    df_long,
-    x="Leader",
-    y="Pct",
-    color="ToneCategory",
-    barmode="stack",
-    facet_col="PeriodLabel",
-    facet_col_spacing=0.06,
-    category_orders={
-        "Leader": selected_leaders,
-        "ToneCategory": tone_order,
-    },
-    color_discrete_map=tone_colors,
-    height=height,
-    labels={
-        "Pct": "Share of tone categories",
-        "Leader": "Leader",
-        "ToneCategory": "Tone category",
-        "PeriodLabel": "Legislative period",
-    },
-    # zusätzlich: absolute Artikelzahl in custom_data
-    custom_data=["PeriodLabel", "ToneCategory", "NumArticles"],
-)
+if not small_screen:
+    # Standard: Facets nebeneinander
+    fig_bar = px.bar(
+        df_long,
+        x="Leader",
+        y="Pct",
+        color="ToneCategory",
+        barmode="stack",
+        facet_col="PeriodLabel",
+        facet_col_spacing=0.06,
+        category_orders={
+            "Leader": selected_leaders,
+            "ToneCategory": tone_order,
+        },
+        color_discrete_map=tone_colors,
+        height=height,
+        labels={
+            "Pct": "Share of tone categories",
+            "Leader": "Leader",
+            "ToneCategory": "Tone category",
+            "PeriodLabel": "Legislative period",
+        },
+        custom_data=["PeriodLabel", "ToneCategory", "NumArticles"],
+    )
 
-fig_bar.update_traces(
-    hovertemplate=(
-        "Leader: %{x}<br>"
-        "Period: %{customdata[0]}<br>"
-        "Tone: %{customdata[1]}<br>"
-        "Articles: %{customdata[2]:,}<br>"
-        "Share: %{y:.1f}%<extra></extra>"
-    ),
-)
+    fig_bar.update_traces(
+        hovertemplate=(
+            "Leader: %{x}<br>"
+            "Period: %{customdata[0]}<br>"
+            "Tone: %{customdata[1]}<br>"
+            "Articles: %{customdata[2]:,}<br>"
+            "Share: %{y:.1f}%<extra></extra>"
+        ),
+    )
 
-fig_bar.update_yaxes(
-    title="Share of tone categories",
-    matches=None,
-    showticklabels=True,
-)
-fig_bar.update_xaxes(title="Leader")
+    fig_bar.update_yaxes(
+        title="Share of tone categories",
+        matches=None,
+        showticklabels=True,
+    )
+    fig_bar.update_xaxes(title="Leader")
 
-fig_bar.update_layout(
-    legend_title_text="Tone category",
-    margin=dict(l=10, r=10, t=60, b=40),
-)
+    fig_bar.update_layout(
+        legend_title_text="Tone category",
+        margin=dict(l=10, r=10, t=60, b=40),
+    )
 
-st.plotly_chart(fig_bar, use_container_width=True)
+    st.plotly_chart(fig_bar, use_container_width=True)
+
+else:
+    # Stacked layout: je legislative period ein eigenes Chart untereinander
+    for period_label in sorted(df_long["PeriodLabel"].unique()):
+        sub = df_long[df_long["PeriodLabel"] == period_label].copy()
+        if sub.empty:
+            continue
+
+        fig_bar_single = px.bar(
+            sub,
+            x="Leader",
+            y="Pct",
+            color="ToneCategory",
+            barmode="stack",
+            category_orders={
+                "Leader": selected_leaders,
+                "ToneCategory": tone_order,
+            },
+            color_discrete_map=tone_colors,
+            height=height,
+            labels={
+                "Pct": "Share of tone categories",
+                "Leader": "Leader",
+                "ToneCategory": "Tone category",
+            },
+            title=f"Legislative period: {period_label}",
+            custom_data=["ToneCategory", "NumArticles"],
+        )
+
+        fig_bar_single.update_traces(
+            hovertemplate=(
+                "Leader: %{x}<br>"
+                "Tone: %{customdata[0]}<br>"
+                "Articles: %{customdata[1]:,}<br>"
+                "Share: %{y:.1f}%<extra></extra>"
+            ),
+        )
+
+        fig_bar_single.update_yaxes(
+            title="Share of tone categories",
+            showticklabels=True,
+        )
+        fig_bar_single.update_xaxes(title="Leader")
+
+        fig_bar_single.update_layout(
+            legend_title_text="Tone category",
+            margin=dict(l=10, r=10, t=50, b=40),
+        )
+
+        st.plotly_chart(fig_bar_single, use_container_width=True)
 
 st.markdown("""
 ### Interpretation
@@ -232,6 +292,7 @@ This stacked bar chart shows, for each leader and legislative period, the share 
 """)
 
 st.divider()
+
 
 
 
