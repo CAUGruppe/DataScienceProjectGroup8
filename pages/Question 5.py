@@ -369,20 +369,26 @@ fig2.update_layout(
         tickformat="%b %Y",
         range=[
             monthly["Date"].min() - pd.DateOffset(months=1),
-            x_range_end,                                      # ← Platz für Legende
+            x_range_end,
         ],
     ),
     yaxis=dict(title="Average Tone", zeroline=False, gridcolor="#f0f0f0"),
-    legend=dict(orientation="h",y=1.00, x=0.5, xanchor="center", font=dict(size=13),
-    bgcolor="white",          # ← NEU
-    bordercolor="#e0e0e0",    # ← NEU
-    borderwidth=1,            # ← NEU
-)
+    legend=dict(
+        orientation="h",
+        y=1.12,
+        x=0.5,
+        xanchor="center",
+        font=dict(size=13),
+        bgcolor="white",
+        bordercolor="#e0e0e0",
+        borderwidth=1,
+    ),
     template="plotly_white",
     height=520,
     margin=dict(t=130, b=60, l=60, r=40),
     hovermode="closest",
 )
+
 
 st.plotly_chart(fig2, use_container_width=True)
 
