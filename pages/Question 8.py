@@ -24,18 +24,18 @@ st.divider()
 @st.cache_data
 def load_rq8_event_actor_top():
     # Pfad anpassen, je nachdem, wo du die Datei abgelegt hast
-    return pd.read_csv("/Users/beytuygt/DataScienceProjectGroup8/Data/rq8_event_actor_top.csv")
+    return pd.read_csv("Data/rq8_event_actor_top.csv")
 
 
 @st.cache_data
 def load_rq8_top_events():
     # Pfad ggf. an Projektstruktur anpassen
-    return pd.read_csv("/Users/beytuygt/DataScienceProjectGroup8/Data/rq8_top_events_labeled.csv")
+    return pd.read_csv("Data/rq8_top_events_labeled.csv")
 
 
 @st.cache_data
 def load_rq8_events_non_unknown():
-    return pd.read_csv("/Users/beytuygt/DataScienceProjectGroup8/Data/rq8_events_non_unknown.csv")
+    return pd.read_csv("Data/rq8_events_non_unknown.csv")
 
 
 event_actor_top = load_rq8_event_actor_top()
