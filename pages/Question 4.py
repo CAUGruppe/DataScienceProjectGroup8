@@ -22,7 +22,7 @@ st.divider()
 # Daten laden & vorbereiten
 # --------------------------------------------------
 @st.cache_data
-def load_data_rq4():
+def load_rq4_data():
     df = utils.load_data_rq4().copy()
 
     df["Datetime"] = pd.to_datetime(
@@ -124,7 +124,7 @@ def load_data_rq4():
     return counts_pct, totals_de_us
 
 
-counts_pct, totals_de_us = load_data_rq4()
+counts_pct, totals_de_us = load_rq4_data()
 
 # Ordnung & Farben
 # Ordnung & Farben
