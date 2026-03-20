@@ -30,7 +30,7 @@ with col1:
 with col2:
     # Placeholder for an image (e.g., World Map)
     #st.info("💡 Pro Tip: Insert a screenshot of your World Map (RQ6) here.")
-    st.image("images/GlobalConflicts.jpg")
+    st.image("images/globalConflicts.jpg")
 
 st.divider()
 
