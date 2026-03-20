@@ -22,7 +22,7 @@ st.divider()
 # Daten laden & vorbereiten
 # --------------------------------------------------
 @st.cache_data
-def load_rq4_data():
+def load_data_rq4():
     df = utils.load_data_rq4().copy()
 
     df["Datetime"] = pd.to_datetime(
