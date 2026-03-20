@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import utils
 
 # --------------------------------------------------
 # Grundkonfiguration
@@ -21,18 +22,15 @@ st.divider()
 # --------------------------------------------------
 @st.cache_data
 def load_rq4_data():
-    # 1. Pfad zur großen GKG-Datei anpassen!
-    # Das sollte dieselbe Datei sein wie im Notebook (z.B. im Ordner Data)
-    df = pd.read_csv(
-        "Data/tagesschau_zdf_pbs_foxnews_bild_gkg_partitioned_full_2021.csv"
-    )
+    # 1. Daten aus Parquet laden
+    df = utils.load_data().copy()
 
     # 2. Datums-/Ton-Vorbereitung (wie im Notebook)
     df["Datetime"] = pd.to_datetime(
         df["DATE"].astype(str).str[:14], format="%Y%m%d%H%M%S"
     )
     df["Date"] = df["Datetime"].dt.date
-    df["Tone"] = df["V2Tone"].str.split(",").str[0].astype(float)
+    df["Tone"] = df["V2Tone"].str.split(",").str.astype(float)
 
     leaders = ["Biden", "Trump", "Scholz", "Merz"]
 
@@ -130,6 +128,7 @@ def load_rq4_data():
     )
 
     return counts_pct, totals_de_us
+
 
 
 counts_pct, totals_de_us = load_rq4_data()
