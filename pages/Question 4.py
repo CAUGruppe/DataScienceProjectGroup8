@@ -32,7 +32,6 @@ def load_rq4_data():
     df["Date"] = df["Datetime"].dt.date
     df["Tone"] = df["V2Tone"].str.split(",").str[0].astype(float)
 
-
     leaders = ["Biden", "Trump", "Scholz", "Merz"]
 
     def extract_leader(persons_str):
@@ -149,13 +148,35 @@ tone_colors = {
 # --------------------------------------------------
 st.markdown("### Tone per leader and legislative period")
 
-df_long = counts_pct[counts_pct["ToneCategory"].isin(tone_order)].copy()
+# Auswahl: welche Leader-Gruppe anzeigen
+leader_group = st.radio(
+    "Select leader group",
+    options=["Germany (Scholz, Merz)", "US (Biden, Trump)"],
+    index=0,
+    horizontal=True,
+)
+
+if leader_group == "Germany (Scholz, Merz)":
+    selected_leaders = ["Scholz", "Merz"]
+else:
+    selected_leaders = ["Biden", "Trump"]
+
+# Daten nach ausgewählter Gruppe filtern
+df_long = counts_pct[
+    counts_pct["ToneCategory"].isin(tone_order)
+    & counts_pct["Leader"].isin(selected_leaders)
+].copy()
+
 df_long["Leader"] = pd.Categorical(
-    df_long["Leader"], categories=leader_order, ordered=True
+    df_long["Leader"], categories=selected_leaders, ordered=True
 )
 df_long["ToneCategory"] = pd.Categorical(
     df_long["ToneCategory"], categories=tone_order, ordered=True
 )
+
+# Dynamische Höhe: weniger Leader -> niedrigere Figur (besser für Mobile)
+base_height = 380
+height = base_height + 60 * (len(selected_leaders) - 2)
 
 fig_bar = px.bar(
     df_long,
@@ -164,50 +185,55 @@ fig_bar = px.bar(
     color="ToneCategory",
     barmode="stack",
     facet_col="PeriodLabel",
-    facet_col_spacing=0.08,
+    facet_col_spacing=0.06,
     category_orders={
-        "Leader": leader_order,
+        "Leader": selected_leaders,
         "ToneCategory": tone_order,
     },
     color_discrete_map=tone_colors,
-    height=430,
+    height=height,
     labels={
         "Pct": "Share of tone categories",
         "Leader": "Leader",
         "ToneCategory": "Tone category",
         "PeriodLabel": "Legislative period",
     },
-    # NEU: customdata direkt aus dem DataFrame
-    custom_data=["PeriodLabel", "ToneCategory"],
+    # zusätzlich: absolute Artikelzahl in custom_data
+    custom_data=["PeriodLabel", "ToneCategory", "NumArticles"],
 )
-
 
 fig_bar.update_traces(
     hovertemplate=(
         "Leader: %{x}<br>"
         "Period: %{customdata[0]}<br>"
         "Tone: %{customdata[1]}<br>"
+        "Articles: %{customdata[2]:,}<br>"
         "Share: %{y:.1f}%<extra></extra>"
     ),
 )
 
-
-fig_bar.update_yaxes(title="Share of tone categories", matches=None, showticklabels=True)
+fig_bar.update_yaxes(
+    title="Share of tone categories",
+    matches=None,
+    showticklabels=True,
+)
 fig_bar.update_xaxes(title="Leader")
 
 fig_bar.update_layout(
     legend_title_text="Tone category",
-    margin=dict(l=40, r=40, t=80, b=40),
+    margin=dict(l=10, r=10, t=60, b=40),
 )
 
 st.plotly_chart(fig_bar, use_container_width=True)
 
 st.markdown("""
 ### Interpretation
-This stacked bar chart shows, for each leader and legislative period, the share of positive, negative, and neutral coverage in the news. This allows us to compare not only how strongly each leader is criticized or praised overall, but also how these tone patterns change between the first and second legislative periods in Germany and the United States.
+This stacked bar chart shows, for each leader and legislative period, the share of positive, negative, and neutral coverage in the news. This allows us to compare not only how strongly each leader is criticized or praised overall, but also how these tone patterns change between the first and second legislative periods in Germany and the United States. As an example, it shows that articles about Merz were more positive when Scholz was chancellor than they are now with Merz as chancellor.
 """)
 
 st.divider()
+
+
 
 # --------------------------------------------------
 # FIGURE 2: Overall tone distribution for DE vs US leaders
