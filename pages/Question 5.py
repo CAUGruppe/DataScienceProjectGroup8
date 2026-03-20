@@ -74,6 +74,11 @@ OUTLET_COLORS = {
     "ZDF":        "#E65100",
 }
 
+TEXT_COLORS = {
+    "Tagesschau": "#64B5F6",
+    "ZDF":        "#FFB74D",
+}
+
 EVENTS = [
     {
         "label":     "Federal Election 2025 (23 Feb)",
@@ -256,6 +261,9 @@ the three key political windows: the EU Election (June 2024), the Coalition Coll
 a slightly elevated (less negative) tone during election periods compared to
 non-election months — Tagesschau at –2.52 vs. –2.83 and ZDF at –2.28 vs. –3.06 —
 suggesting a modest softening of framing during politically heightened periods.
+These findings should however be interpreted with caution given the considerable
+imbalance in sample size between Tagesschau (n = 12,726) and ZDF (n = 311), 
+which limits the comparability of outlet-level conclusions.
 """)
 
 st.divider()
@@ -264,7 +272,7 @@ st.divider()
 # Visualization 2 — Bubble Chart
 # --------------------------------------------------
 max_n = monthly["n"].max()
-monthly["BubbleSize"] = (monthly["n"] / max_n * 55).clip(lower=6)
+monthly["BubbleSize"] = (monthly["n"] / max_n * 40).clip(lower=4, upper=40)
 
 fig2 = go.Figure()
 
@@ -324,19 +332,20 @@ fig2.add_annotation(
     showarrow=False, font=dict(size=9, color="#555"), xanchor="center",
 )
 for i, ref_n in enumerate(ref_sizes):
+    ref_px = ref_n / max_n * 40
     fig2.add_trace(go.Scatter(
         x=[x_ref],
-        y=[y_max - 0.55 - i * 1.1],
+        y=[y_max - 0.55 - i * 0.9],
         mode="markers+text",
         showlegend=False,
         hoverinfo="skip",
         marker=dict(
-            size=ref_n / max_n * 55,
+            size=ref_px,
             color="#9E9E9E", opacity=0.45,
             line=dict(color="#757575", width=1),
             sizemode="diameter",
         ),
-        text=[f" {ref_n}"],
+        text=[f"  {ref_n}"],
         textfont=dict(size=8.5, color="#555"),
         textposition="middle right",
     ))
@@ -348,7 +357,7 @@ fig2.update_layout(
         tickformat="%b %Y",
         range=[
             monthly["Date"].min() - pd.DateOffset(months=1),
-            monthly["Date"].max() + pd.DateOffset(months=5),
+            monthly["Date"].max() + pd.DateOffset(months=3),
         ],
     ),
     yaxis=dict(title="Average Tone", zeroline=False, gridcolor="#f0f0f0"),
@@ -378,7 +387,8 @@ which months had more coverage. Tagesschau dominates in volume throughout, while
 ZDF has fewer monthly data points with more volatile fluctuations. The spatial
 pattern confirms that tone slightly improves during election windows, and the
 Coalition Collapse period (November 2024) stands out as one of the most negatively
-framed phases across both outlets.
+framed phases across both outlets. Because of missing data in the dataset of ZDF
+the Bubbles are small, which makes a founded Interpretation impossible.
 """)
 
 st.divider()
@@ -394,7 +404,7 @@ def get_event_anim(date):
 
 all_months = sorted(monthly["Date"].unique())
 y_min2     = monthly["mean"].min() - 0.8
-y_max2     = monthly["mean"].max() + 1.2
+y_max2     = monthly["mean"].max() + 2.0
 
 frames = []
 for month in all_months:
@@ -430,7 +440,7 @@ for month in all_months:
                 textposition="outside",
                 textfont=dict(
                     size=13,
-                    color=[OUTLET_COLORS[b["outlet"]] for b in bar_data],
+                    color=[TEXT_COLORS[b["outlet"]] for b in bar_data],
                 ),
                 customdata=[[b["n"]] for b in bar_data],
                 hovertemplate=(
@@ -482,7 +492,10 @@ fig3 = go.Figure(
             width=0.45,
             text=[f"{b['tone']:.2f}" if b["has_data"] else "" for b in init_data],
             textposition="outside",
-            textfont=dict(size=13),
+            textfont=dict(
+                size=13,
+                color=[TEXT_COLORS[b["outlet"]] for b in init_data],
+            ),
             customdata=[[b["n"]] for b in init_data],
             hovertemplate=(
                 "<b>%{x}</b><br>"
@@ -588,10 +601,9 @@ st.markdown("""
 ### Interpretation
 This animated bar chart steps through each month to compare the average tone of
 government coverage between Tagesschau and ZDF. The background tint changes colour
-during election periods to signal politically heightened windows. Both outlets exhibit
-slightly elevated tone during election run-up periods, with the Coalition Collapse
-(November 2024) and the Federal Election 2025 standing out as the most distinct
-phases in the time series.
+during election periods to signal politically heightened windows. 
+Because of missing data in the dataset of ZDF sometimes
+the Chart is empty at that timeframe, which makes a founded Interpretation impossible.
 """)
 
 st.divider()
