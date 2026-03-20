@@ -373,7 +373,11 @@ fig2.update_layout(
         ],
     ),
     yaxis=dict(title="Average Tone", zeroline=False, gridcolor="#f0f0f0"),
-    legend=dict(orientation="h", y=1.12, x=0.5, xanchor="center", font=dict(size=13)),
+    legend=dict(orientation="h",y=1.00, x=0.5, xanchor="center", font=dict(size=13),
+    bgcolor="white",          # ← NEU
+    bordercolor="#e0e0e0",    # ← NEU
+    borderwidth=1,            # ← NEU
+)
     template="plotly_white",
     height=520,
     margin=dict(t=130, b=60, l=60, r=40),
@@ -443,7 +447,7 @@ for month in all_months:
                 textposition="outside",
                 textfont=dict(
                     size=13,
-                    color=[TEXT_COLORS[b["outlet"]] for b in bar_data],
+                    color="black",
                 ),
                 customdata=[[b["n"]] for b in bar_data],
                 hovertemplate=(
@@ -502,7 +506,7 @@ fig3 = go.Figure(
             textposition="outside",
             textfont=dict(
                 size=13,
-                color=[TEXT_COLORS[b["outlet"]] for b in init_data],
+                color="black",
             ),
             customdata=[[b["n"]] for b in init_data],
             hovertemplate=(
