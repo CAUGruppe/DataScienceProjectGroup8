@@ -526,35 +526,31 @@ fig3 = go.Figure(
     ],
     frames=frames,
 )
-
 fig3.update_layout(
-title=dict(
-    text=(
-        f"Monthly AvgTone – German Media Coverage of Government<br>"
-        f"<span style='font-size:13px'>{first_str}</span>"
+    title=dict(
+        text=(
+            f"Monthly AvgTone – German Government Coverage (RQ5)<br>"
+            f"<span style='font-size:13px'>{first_str}</span>"
+        ),
+        font=dict(size=14, color="black"),
+        x=0.5,
     ),
-    font=dict(size=14, color="black"),   # ← war: "#1a1a2e"
-    x=0.5,
-),
-
+    xaxis=dict(
+        categoryarray=OUTLETS,
+        categoryorder="array",
+        showgrid=False,
+        title=dict(text="Outlet", font=dict(color="black")),
+        tickfont=dict(color="black"),
     ),
-   xaxis=dict(
-    categoryarray=OUTLETS,
-    categoryorder="array",
-    showgrid=False,
-    title=dict(text="Outlet", font=dict(color="black")),   # ← NEU
-    tickfont=dict(color="black"),                          # ← NEU
-  ),
-  yaxis=dict(
-    title=dict(text="AvgTone Score", font=dict(color="black")),  # ← NEU
-    tickfont=dict(color="black"),                                # ← NEU
-    range=[y_min2, y_max2],
-    gridcolor="#e8e8e8",
-    zeroline=True,
-    zerolinecolor="gray",
-    zerolinewidth=1.2,
+    yaxis=dict(
+        title=dict(text="AvgTone Score", font=dict(color="black")),
+        tickfont=dict(color="black"),
+        range=[y_min2, y_max2],
+        gridcolor="#e8e8e8",
+        zeroline=True,
+        zerolinecolor="gray",
+        zerolinewidth=1.2,
     ),
-
     plot_bgcolor="white",
     paper_bgcolor=first_ev["color"] if first_ev else "white",
     height=500,
@@ -612,6 +608,7 @@ title=dict(
         ),
     ],
 )
+
 
 st.plotly_chart(fig3, use_container_width=True)
 
