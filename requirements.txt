@@ -2,9 +2,6 @@ streamlit
 pandas
 plotly
 pyarrow
-plotly.express
 matplotlib
-scikit-learn
-sklearn.preprocessing
 seaborn
-MinMaxScaler
+scikit-learn
