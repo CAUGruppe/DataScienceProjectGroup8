@@ -4,4 +4,4 @@ plotly
 pyarrow
 plotly.express
 matplotlib
-sklearn
+sklearn.preprocessing
