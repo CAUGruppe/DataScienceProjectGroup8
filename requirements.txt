@@ -5,3 +5,4 @@ pyarrow
 plotly.express
 matplotlib
 sklearn.preprocessing
+seaborn
