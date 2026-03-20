@@ -354,13 +354,17 @@ for i, ref_n in enumerate(ref_sizes):
         x=[x_ref], y=[y_max - 0.55 - i * 1.1],
         mode="markers+text", showlegend=False, hoverinfo="skip",
         marker=dict(
-            size=ref_n / max_n * 55, color="#9E9E9E", opacity=0.45,
-            line=dict(color="#757575", width=1), sizemode="diameter",
+            size=ref_n / max_n * 55,
+            color="white",              # ← war: "#9E9E9E"
+            opacity=1,                  # ← war: 0.45
+            line=dict(color="#757575", width=1.5),  # ← Rand bleibt grau
+            sizemode="diameter",
         ),
         text=[f" {ref_n}"],
         textfont=dict(size=8.5, color="#555"),
         textposition="middle right",
     ))
+
 
 fig2.update_layout(
     title="Tone of German Government Coverage by Article Volume (Bubble Size = Article Count)",
@@ -369,26 +373,16 @@ fig2.update_layout(
         tickformat="%b %Y",
         range=[
             monthly["Date"].min() - pd.DateOffset(months=1),
-            x_range_end,
+            x_range_end,                                      # ← Platz für Legende
         ],
     ),
     yaxis=dict(title="Average Tone", zeroline=False, gridcolor="#f0f0f0"),
-    legend=dict(
-        orientation="h",
-        y=1.12,
-        x=0.5,
-        xanchor="center",
-        font=dict(size=13),
-        bgcolor="white",
-        bordercolor="#e0e0e0",
-        borderwidth=1,
-    ),
+    legend=dict(orientation="h", y=1.12, x=0.5, xanchor="center", font=dict(size=13)),
     template="plotly_white",
     height=520,
     margin=dict(t=130, b=60, l=60, r=40),
     hovermode="closest",
 )
-
 
 st.plotly_chart(fig2, use_container_width=True)
 
@@ -453,7 +447,7 @@ for month in all_months:
                 textposition="outside",
                 textfont=dict(
                     size=13,
-                    color="black",
+                    color=[TEXT_COLORS[b["outlet"]] for b in bar_data],
                 ),
                 customdata=[[b["n"]] for b in bar_data],
                 hovertemplate=(
@@ -512,7 +506,7 @@ fig3 = go.Figure(
             textposition="outside",
             textfont=dict(
                 size=13,
-                color="black",
+                color=[TEXT_COLORS[b["outlet"]] for b in init_data],
             ),
             customdata=[[b["n"]] for b in init_data],
             hovertemplate=(
@@ -534,28 +528,33 @@ fig3 = go.Figure(
 )
 
 fig3.update_layout(
-    title=dict(
-        text=(
-            f"Monthly AvgTone – German Government Coverage (RQ5)<br>"
-            f"<span style='font-size:13px'>{first_str}</span>"
-        ),
-        font=dict(size=14, color="#1a1a2e"),
-        x=0.5,
+title=dict(
+    text=(
+        f"Monthly AvgTone – German Media Coverage of Government<br>"
+        f"<span style='font-size:13px'>{first_str}</span>"
     ),
-    xaxis=dict(
-        categoryarray=OUTLETS,
-        categoryorder="array",
-        showgrid=False,
-        title="Outlet",
+    font=dict(size=14, color="black"),   # ← war: "#1a1a2e"
+    x=0.5,
+),
+
     ),
-    yaxis=dict(
-        title="AvgTone Score",
-        range=[y_min2, y_max2],
-        gridcolor="#e8e8e8",
-        zeroline=True,
-        zerolinecolor="gray",
-        zerolinewidth=1.2,
+   xaxis=dict(
+    categoryarray=OUTLETS,
+    categoryorder="array",
+    showgrid=False,
+    title=dict(text="Outlet", font=dict(color="black")),   # ← NEU
+    tickfont=dict(color="black"),                          # ← NEU
+  ),
+  yaxis=dict(
+    title=dict(text="AvgTone Score", font=dict(color="black")),  # ← NEU
+    tickfont=dict(color="black"),                                # ← NEU
+    range=[y_min2, y_max2],
+    gridcolor="#e8e8e8",
+    zeroline=True,
+    zerolinecolor="gray",
+    zerolinewidth=1.2,
     ),
+
     plot_bgcolor="white",
     paper_bgcolor=first_ev["color"] if first_ev else "white",
     height=500,
