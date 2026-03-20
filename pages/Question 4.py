@@ -124,7 +124,7 @@ def load_data_rq4():
     return counts_pct, totals_de_us
 
 
-counts_pct, totals_de_us = load_rq4_data()
+counts_pct, totals_de_us = load_data_rq4()
 
 # Ordnung & Farben
 # Ordnung & Farben
