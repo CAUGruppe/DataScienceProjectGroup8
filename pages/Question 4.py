@@ -18,11 +18,13 @@ How frequently are specific political leaders (Merz, Trump, Biden, and Scholz) a
 
 st.divider()
 
+
 # --------------------------------------------------
 # Daten laden & vorbereiten
 # --------------------------------------------------
 @st.cache_data
 def load_rq4_data():
+    # Rohdaten aus utils (Parquet-Parts)
     df = utils.load_data_rq4().copy()
 
     df["Datetime"] = pd.to_datetime(
@@ -126,7 +128,7 @@ def load_rq4_data():
 
 counts_pct, totals_de_us = load_rq4_data()
 
-# Ordnung & Farben
+
 # Ordnung & Farben
 tone_order = ["Positive", "Negative", "Neutral/none"]
 leader_order = ["Scholz", "Merz", "Biden", "Trump"]
@@ -144,6 +146,7 @@ period_title_map = {
     "08.12.2021 – 20.01.2025": "Legislative Period (Biden): 08.12.2021–20.01.2025",
     "20.01.2025 – 16.03.2026": "Legislative Period (Trump): 20.01.2025–16.03.2026",
 }
+
 
 # --------------------------------------------------
 # FIGURE 1: Stacked Bar – Tone per Leader & Legislative Period
@@ -246,7 +249,6 @@ else:
         if sub.empty:
             continue
 
-        # auch hier period_title_map nutzen
         title_text = period_title_map.get(
             period_label, f"Legislative period: {period_label}"
         )
@@ -294,12 +296,14 @@ else:
 
         st.plotly_chart(fig_bar_single, use_container_width=True)
 
+
 st.markdown("""
 ### Interpretation
 This stacked bar chart shows, for each leader and legislative period, the share of positive, negative, and neutral coverage in the news. This allows us to compare not only how strongly each leader is criticized or praised overall, but also how these tone patterns change between the first and second legislative periods in Germany and the United States. As an example, it shows that articles about Merz were more positive when Scholz was chancellor than they are now with Merz as chancellor.
 """)
 
 st.divider()
+
 
 # --------------------------------------------------
 # FIGURE 2: Overall tone distribution for DE vs US leaders
@@ -373,6 +377,7 @@ These charts summarize the overall tone distribution for US leaders (Biden and T
 """)
 
 st.divider()
+
 
 # --------------------------------------------------
 # FIGURE 3: Tone distribution per leader & period (small multiples)
