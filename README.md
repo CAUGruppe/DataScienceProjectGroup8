@@ -15,13 +15,13 @@ In order to measure how the media shapes our views, gdelt offers a number of ton
 
 
    
-tone	            total-Sentiment (−100 bis +100)
-positive_score	    share of positive words
-negative_score	    share of negative words
-polarity	        emotionality in language
-activity_density	"activeness" in language
-self_group_density	amount of pronouns used
-word_count	Anzahl  amount of words
+- **tone**:	            total-Sentiment (−100 bis +100)
+- **positive_score**:	    share of positive words
+- **negative_score**:	    share of negative words
+- **polarity**:	        emotionality in language
+- **activity_density**:	"activeness" in language
+- **self_group_density**:	amount of pronouns used
+- **word_count**:  amount of words
 
 
 Gdelt uses a dictionary they created themselfs in order to map the words to their specific group.
