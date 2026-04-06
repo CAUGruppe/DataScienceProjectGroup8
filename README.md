@@ -29,3 +29,5 @@ Gdelt uses a dictionary they created themselfs in order to map the words to thei
 In order to retrive the data we used numerous SQL queries to operate on the gdelt dataset via google big query.
 
 The Dataset used for our Streamlit site is mostly the parquet data file, wich contains all relevant fields.
+
+Link to the Streamlit-Website: https://media-analysis.streamlit.app
